@@ -1,0 +1,20 @@
+1, johndoe123, p@ssw0rd, 28, johndoe123@gmail.com, New York, 2022-05-09, rock, indie, alternative
+2, sarahsmith, 123abc, 32, sarahsmith@hotmail.com, Los Angeles, 2022-05-09, pop, electronic, hip hop
+3, davidbrown, password123, 45, davidbrown@yahoo.com, London, 2022-05-09, jazz, blues, classical
+4, emmamiller, hellothere, 21, emmamiller@gmail.com, Sydney, 2022-05-09, pop, rock, country
+5, alexrodriguez, abc123, 36, alexrodriguez@hotmail.com, Miami, 2022-05-09, hip hop, rap, R&B
+6, jessicajones, ilovecats, 29, jessicajones@yahoo.com, San Francisco, 2022-05-09, indie, folk, rock
+7, mikeroberts, mypassword, 38, mikeroberts@gmail.com, Chicago, 2022-05-09, metal, punk, rock
+8, ashleywilson, ashley123, 27, ashleywilson@hotmail.com, Toronto, 2022-05-09, pop, electronic, dance
+9, williamthompson, password1234, 41, williamthompson@gmail.com, Paris, 2022-05-09, classical, opera, jazz
+10, lisawhite, lisawhite1, 24, lisawhite@yahoo.com, Berlin, 2022-05-09, pop, rock, indie
+11, markdavis, markd123, 31, markdavis@hotmail.com, Tokyo, 2022-05-09, hip hop, R&B, soul
+12, julieanderson, janderson, 37, julieanderson@gmail.com, Vancouver, 2022-05-09, country, folk, pop
+13, stevewatson, qwerty123, 52, stevewatson@hotmail.com, Madrid, 2022-05-09, rock, metal, alternative
+14, jennygarcia, jennyg, 26, jennygarcia@yahoo.com, Miami, 2022-05-09, pop, electronic, dance
+15, kevinbaker, kevin123, 30, kevinbaker@gmail.com, London, 2022-05-09, hip hop, rap, electronic
+16, meganhall, password321, 33, meganhall@hotmail.com, Los Angeles, 2022-05-09, indie, rock, alternative
+17, thomasgreen, tgreen1, 25, thomasgreen@yahoo.com, New York, 2022-05-09, jazz, blues, classical
+18, hannahsmith, hsmith123, 29, hannahsmith@gmail.com, Berlin, 2022-05-09, indie, folk, country
+19, williamjones, password12345, 36, williamjones@hotmail.com, Paris, 2022-05-09, classical, opera, jazz
+20, kellydavis, kelly123, 28, kellydavis@yahoo.com, San Francisco, 2022-05-09, pop, rock, electronic

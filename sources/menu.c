@@ -5,25 +5,17 @@
 #include "../headers/menu.h"
 
 void show_menu() {
-  printf("Welcome to --nom aplicacio-- \n");
-  printf("\n");
-
-  int option_menu = INVALID_OPTION;
-  while (option_menu != OPTION_QUIT) {
-    printf (" 1) Register.\n 2) Log In.\n 3) Terms of Use.\n 0) Quit.\n");
-    printf("Choose an option:\n");
-    scanf("%d", &option_menu);
-    if (option_menu == 1) {
-      
-    }
-    else if (option_menu == 2) {
-      
-    }
-    else if (option_menu == 3) {
-      terms_of_use();
-      printf("\nWhat do you want to do now?\n");
-    }
-  }
+    printf("\n");
+    printf("1. Insertar nuevo usuario.\n");
+    printf("2. Listar todos los usuarios existentes.\n");
+    printf("3. Operar como un usuario específico.\n");
+    printf("4. Enviar solicitudes de amistad.\n");
+    printf("5. Gestionar las solicitudes pendientes.\n");
+    printf("6. Realizar una publicación.\n");
+    printf("7. Listar las publicaciones del usuario seleccionado.\n");
+    printf("8. Volver al menú principal.\n");
+    printf("9. Mostrar los términos de uso.\n");
+    printf("10. Salir (Terminar ejecución).\n");
 }
 
   
