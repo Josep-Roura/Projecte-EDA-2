@@ -11,7 +11,7 @@ void terms_of_use() {
   }
   char buf[100];
   while((fgets(buf, 100,file_terms)) != NULL){
-    printf("%s",buf);
+    printf("%s",buf); // Vamos recorriendo el archivo línea por línea e imprimiendo carácter por carácter.
   }
   fclose(file_terms);
   

@@ -1,1 +1,1 @@
-void terms_of_use();
+void terms_of_use(); // Función que cogerá el texto de un archivo .txt y lo imprimirá por pantalla.
