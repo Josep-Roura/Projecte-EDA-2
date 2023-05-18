@@ -1,7 +1,7 @@
 #include "../headers/menu.h"
 #include "../headers/terms.h"
-#include "../headers/user.h"
 #include "../headers/grafs.h"
+#include "../headers/publi.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -43,38 +43,60 @@ int main() {
                 // Aquí irá el código para operar como un usuario específico.
                 break;
             case 4: //
-                printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n"); // Josep
+              if (log_in_completed == 1) {
+                printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n");
+              }
+              else {
+                printf("\nDebes iniciar sesión primero.");
+              }
+                // Josep
                 // Aquí irá el código para enviar solicitudes de amistad.
                 break;
             case 5:
+              if (log_in_completed == 1) {
                 printf("Opción 5 seleccionada: Gestionar las solicitudes pendientes.\n");
+              }
+              else {
+                printf("\nDebes iniciar sesión primero.");
+              }
                 // Aquí irá el código para gestionar las solicitudes pendientes.
                 break;
             case 6:
+              //if (log_in_completed == 1) {
                 printf("Opción 6 seleccionada: Realizar una publicación.\n");
-                // Aquí irá el código para realizar una publicación.
                 add_publication();
+              //}
+                
+              //else {
+                //printf("\nDebes iniciar sesión primero.");
+              //}
+                // Aquí irá el código para realizar una publicación.
+                //add_publication();
                 break;
             case 7:
+              if (log_in_completed == 1) {
                 printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
+                list_publications();
+              }
+              else {
+                printf("\nDebes iniciar sesión primero.");
+              }
                 // Aquí irá el código para listar las publicaciones del usuario seleccionado.
+               // list_publications()
                 break;
             case 8:
-                printf("Opción 8 seleccionada: Volver al menú principal.\n");
-                break;
-            case 9:
-                printf("Opción 9 seleccionada: Mostrar términos de uso.\n");
+                printf("Opción 8 seleccionada: Mostrar términos de uso.\n");
                 terms_of_use();
                 break;
-            case 10:
-                printf("Opción 10 seleccionada: Salir (Terminar ejecución).\n");
+            case 9:
+                printf("Opción 9 seleccionada: Salir (Terminar ejecución).\n");
                 break;
 
             default:
                 printf("Opción no válida. Por favor, ingrese una opción válida.\n");
                 break;
         }
-    } while (option != 10); // Se sale del bucle, y por lo tanto se cierra el menú, cuando se escoge una opción diferente a las posibles.
+    } while (option != 9); // Se sale del bucle, y por lo tanto se cierra el menú, cuando se escoge una opción diferente a las posibles.
 
   return 0; 
 }

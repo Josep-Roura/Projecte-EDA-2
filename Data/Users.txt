@@ -19,3 +19,4 @@
 19,williamjones,password12345,36,williamjones@hotmail.com,Paris,2022-05-09,classical,opera,jazz
 20,kellydavis,kelly123,28,kellydavis@yahoo.com,San Francisco,2022-05-09,pop,rock,electronic
 21,eric.mperezz,treballeda2,18,eric.matasp12@gmail.com,Barcelona,2023-05-12,rap,trap,drill
+22,francisco,franciscos,20,f.luc.aquaro@gmail.com,Barcelona,2023-05-18,Rock,Rap,Reggae

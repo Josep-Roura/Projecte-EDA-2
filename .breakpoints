@@ -1,3 +1,12 @@
 {
-  "files": {}
+  "files": {
+    "sources/publi.c": [
+      {
+        "id": "7e94b2aa-8111-4567-ba55-5e624b6c3db0",
+        "line": 10,
+        "version": 3182,
+        "index": 162
+      }
+    ]
+  }
 }

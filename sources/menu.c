@@ -13,9 +13,8 @@ void show_menu() {
     printf("5. Gestionar las solicitudes pendientes.\n");
     printf("6. Realizar una publicación.\n");
     printf("7. Listar las publicaciones del usuario seleccionado.\n");
-    printf("8. Volver al menú principal.\n");
-    printf("9. Mostrar los términos de uso.\n");
-    printf("10. Salir (Terminar ejecución).\n");
+    printf("8. Mostrar los términos de uso.\n");
+    printf("9. Salir (Terminar ejecución).\n");
 }
 
   

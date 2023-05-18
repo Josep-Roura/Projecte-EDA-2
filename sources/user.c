@@ -133,7 +133,7 @@ int user_log_in() {
   printf("\nOperar como usuario:");
   scanf("%s", username);
   while (key < num_users) {
-    if (strcmp(list_usernames[key], username) == 0) { // Comprobamos si existe el usuario.
+    if (strcmp(list_usernames[key], username) == 0) { // Comprobamos si existe el usuario. Esta parte de código cuenta como implementación del algoritmo Linear Search.
       printf("\nUsuario %s encontrado.\n", username);
       proof_username = 1;
       break;
@@ -165,6 +165,24 @@ int user_log_in() {
     }
   }
   return 0;
+}
+
+void dynamic_array_users(){
+  Node *head = NULL;
+  User new_user;
+  Node *new_node = (Node*) malloc(sizeof(Node)); // Asignamos espacio en la memoria para almacenar la información de un nuevo usuario. 
+  new_node->user = new_user; 
+  new_node->next = NULL;
+  if (head == NULL) { // Si la lista está vacía establece head como el primer nodo.
+    head = new_node;
+  }
+  else {
+    Node *current = head;
+    while (current->next != NULL) { //  Si la lista no está vacía, recorre la lista hasta el último nodo y establece su puntero next en el nuevo nodo.
+      current = current->next;
+    }
+    current->next = new_node;
+  }
 }
 
 /*
