@@ -14,7 +14,7 @@ typedef struct {
   char release_date[MAX_LENGTH];
   char description[MAX_LENGTH];
   char photo[MAX_LENGTH];
-  int year;
+  char year[MAX_LENGTH];
   int id_publication;
 } Publication;  
 

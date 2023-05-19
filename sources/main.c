@@ -74,13 +74,13 @@ int main() {
                 //add_publication();
                 break;
             case 7:
-              if (log_in_completed == 1) {
+              //if (log_in_completed == 1) {
                 printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
                 list_publications();
-              }
-              else {
-                printf("\nDebes iniciar sesión primero.");
-              }
+              //}
+              //else {
+                //printf("\nDebes iniciar sesión primero.");
+              //}
                 // Aquí irá el código para listar las publicaciones del usuario seleccionado.
                // list_publications()
                 break;

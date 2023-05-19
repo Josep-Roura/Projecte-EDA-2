@@ -1,4 +1,3 @@
-id_publication, nombre_publicacion, artista, sello, año_de_lanzamiento, descripcion, foto, id_usuario, fecha_publicacion
 1, "Rumours", Fleetwood Mac, Warner Bros. Records, 1977, "El álbum más exitoso de Fleetwood Mac, con canciones como 'Dreams', 'Go Your Own Way' y 'Don't Stop'.", "rumours.jpg", 11, "2022-04-15"
 2, "The Dark Side of the Moon", Pink Floyd, Harvest Records, 1973, "Uno de los álbumes más icónicos de todos los tiempos, con canciones como 'Money', 'Time' y 'Us and Them'.", "darkside.jpg", 2, "2022-05-01"
 3, "Thriller", Michael Jackson, Epic Records, 1982, "El álbum más exitoso de todos los tiempos, con canciones como 'Billie Jean', 'Beat It' y 'Thriller'.", "thriller.jpg", 7, "2022-05-08"
@@ -9,3 +8,6 @@ id_publication, nombre_publicacion, artista, sello, año_de_lanzamiento, descrip
 8, "Born to Run", Bruce Springsteen, Columbia Records, 1975, "Un álbum clásico de Springsteen que captura el espíritu del rock and roll, con canciones como 'Born to Run', 'Thunder Road' y 'Jungleland'.", "borntorun.jpg", 1, "2022-05-21"
 9, "The Joshua Tree", U2, Island Records, 1987, "Un álbum que estableció a U2 como una de las bandas más grandes del mundo, con canciones como 'With or Without You', 'I Still Haven't Found What I'm Looking For' y 'Where the Streets Have No Name'.", "joshuatree.jpg", 10, "2022-05-28"
 10, "Back in Black", AC/DC, Atlantic Records, 1980, "El primer álbum de AC/DC con el cantante Brian Johnson, con canciones como 'Back in Black', 'Hells Bells' y 'Shoot to Thrill'.", "backinblack.jpg", 1, "2022-06-28"
+11, DRUKQS, APHEX TWIN, WARP, 2001, MEJOR DISCO DE ESE AÑOS, FOTÓN.JPG, 2023-05-19
+12, ARTAUD, PESCADO RABIOSO, EMI, 2015, DISCO SEMINAL DEL ROCK, PESCADO.JPG, 2023-05-19
+13, druks, aphex, warp, 2001, discazo, foton.jpg, 2023-05-19
