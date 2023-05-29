@@ -30,45 +30,14 @@ void add_publication(){
   scanf("%256[^\n]s", new_publication.photo);
 
 
-  /*
-  Publication new_publication;
-  getchar();
-  printf("Álbum:  ");
-  fgets(&new_publication.album[MAX_LENGTH], 258, stdin);
-  if((strlen(new_publication.album) > 0) && (new_publication.album[strlen(new_publication.album) - 1] == '\n')) {
-    (new_publication.album[strlen(new_publication.album) - 1]) = '\0';
-  }
-  printf("Artista:  ");
-  fgets(&new_publication.artist[MAX_LENGTH], 258, stdin);
-  if((strlen(new_publication.artist) > 0) && (new_publication.artist[strlen(new_publication.artist) - 1] == '\n')) {
-    (new_publication.artist[strlen(new_publication.artist) - 1]) = '\0';
-  }
-  printf("Sello discográfico:  ");
-  fgets(&new_publication.label[MAX_LENGTH], 258, stdin);
-  if((strlen(new_publication.label) > 0) && (new_publication.label[strlen(new_publication.label) - 1] == '\n')) {
-    (new_publication.label[strlen(new_publication.label) - 1]) = '\0';
-  }
-  printf("Año:  ");
-  fgets(&new_publication.year[MAX_LENGTH], 258, stdin);
-  if((strlen(new_publication.year) > 0) && (new_publication.year[strlen(new_publication.year) - 1] == '\n')) {
-    (new_publication.year[strlen(new_publication.year) - 1]) = '\0';
-  }
-  printf("Descripción:  ");
-  fgets(&new_publication.description[MAX_LENGTH], 258, stdin);
-  if((strlen(new_publication.description) > 0) && (new_publication.description[strlen(new_publication.description) - 1] == '\n')) {
-    (new_publication.description[strlen(new_publication.description) - 1]) = '\0';
-  }
-  printf("Foto:  ");
-  fgets(&new_publication.photo[MAX_LENGTH], 258, stdin);
-  if((strlen(new_publication.photo) > 0) && (new_publication.photo[strlen(new_publication.photo) - 1] == '\n')) {
-    (new_publication.photo[strlen(new_publication.photo) - 1]) = '\0';
-  }
-  */
+  // Inicializamos el stack.
+  publication_stack stack;
+  stack.top = - 1;
   
   // Añadir los datos al archivo. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
 
    // Abrir el archivo en modo lectura y escritura
-  FILE *file2 = fopen("./Data/Publications.txt", "r");
+  FILE *file2 = fopen("./Data/Publications.txt", "a+");
 
   if (file2 == NULL) {
      printf("No se pudo abrir el archivo.\n");
@@ -95,21 +64,24 @@ void add_publication(){
   fecha1 = localtime(&horaActual);
   strftime(dateActual, sizeof(dateActual), "%Y-%m-%d", fecha1);
 
-  fclose(file2);
-  fopen("./Data/Publications.txt", "a");
-
+  
   // Escribir los datos en el archivo.
-  fprintf(file2, "%d, %s, %s, %s, %s, %s, %s, %s\n",
-lineas_p,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo,dateActual);
+  fprintf(file2, "\n%d, %s, %s, %s, %s, %s, %s, %s",
+new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo,dateActual);
 
   // Cerrar el archivo.
   fclose(file2);
 
   // Añadimos la publiación al stack.
-  publication_stack stack;
   stack.top++;
   stack.publications[stack.top] = new_publication;
-  return stack;
+
+  int i;
+  for (i = 0; i <= stack.top; i++) {
+  printf("Publicación %d: %s - %s\n", stack.publications[i].id_publication, stack.publications[i].album,
+         stack.publications[i].artist);
+}
+  
 }
 
 
@@ -137,10 +109,10 @@ void list_publications() {
     Publication *publication = malloc(sizeof(Publication));
     publication->UserData = malloc(sizeof(User)); 
     
-    sscanf(line, "%d, %s, %s, %s, %s, %s, %s, %d, %s",
-    publication->id_publication, publication->album, publication->artist,       
+    sscanf(line, "%d, %256[^,]s, %256[^,]s, %256[^,]s, %256[^,]s, %256[^,]s, %256[^,]s, %d, %256[^,]s, %256[^,]s",
+    &publication->id_publication, publication->album, publication->artist,       
     publication->label, publication->year, publication->description, 
-    publication->photo, &publication->UserData->id, publication->release_date);
+    publication->photo, &publication->UserData->id, publication->UserData->username, publication->release_date);
     
     all_publications[num_publications] = publication;
     num_publications++;
@@ -150,7 +122,7 @@ void list_publications() {
 
   char user_name[50];
   printf("Introduzca el nombre del usuario: ");
-  scanf("%s\n", user_name);
+  scanf("%s", user_name);
 
 // Después de esto, buscamos que publicaciones tienen como id de usuario la que se está buscando y las imprimimos
 

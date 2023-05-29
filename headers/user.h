@@ -13,6 +13,11 @@ typedef struct { // Estructura con los datos de cada usuario.
   char genres[3][15];
 } User;
 
+struct UserLogged{
+  char User;
+  char password;
+};
+
 // Lista dinámica de usuarios.
 typedef struct node {
   User user;
@@ -26,9 +31,6 @@ void print_users(); // Función para imprimir todos los usuarios y sus respectiv
 void read_user(User* users, int *num_users); // Función utilizada en la opción 2 y 3 del menú que consiste en leer del archivo el username de cada usuario.
 int user_log_in(); // Función utilizada en la opción 3 del menú que sirve para iniciar sesión y empezar a operar como un usuario en concreto. Dentro de esta función se encuentra la implementación del algoritmo de búsqueda Linear Search.
 
-/*
-void log_in_user(); // Función que te pedirá un usuario para operar como él.
+void insertion_sort_users(User users[], int num_users); // Función utilizada para ordenar de forma alfabética los usernames de los users existentes.
 
-void copy_usernames_to_file(User *users, int num_users); // Función que copiara solo los usernames a un archivo de texto.
-int linear_search_by_username(char *username); // Función que buscará un username en concreto con búsqueda lineal.
-*/
+void new_friend();

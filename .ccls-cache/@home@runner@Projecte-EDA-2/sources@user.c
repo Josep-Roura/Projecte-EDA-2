@@ -107,12 +107,24 @@ void read_user(User *users, int *num_users) {
 
   fclose(file);
 }
-
+void insertion_sort_users(User users[], int num_users) {
+  int i, j;
+  for (i= 1; i < num_users; i++) { // Recorremos el array de usuarios a partir del segundo usuario.
+    User key = users[i]; // Creanos una variable key tipo User para almacenar el índice del usuario actual. Este usuario lo utilizaremos para hacer comparaciones e ir realizando el proceso de inserción
+    j = i - 1; // Inicializamos j con el índice anterior de i y lo utilizaremos para comparar el usuario actual con los usuarios anteriores en el array y y realizar el desplazamiento hacia la derecha.
+    while (j >= 0 & strcmp(users[j].username, key.username) > 0) { // Verificamos si el usuario j debe desplazarse hacia la derecha del array.
+      users[j+1] = users[j]; // Lo desplazamos hacia la derecha.
+      j = j - 1; // Decrementamos j para seguir comparando los usuarios anteriores.
+    }
+    users[j+1] = key; // El usuario key se coloca en la posición correcta dentro de los usuarios anteriores ya ordenados.
+  }
+}
 // Imprimir ID y nombre de usuario de cada usuario ordenado.
 void print_users() {
   int num_users = 0;
   User users[MAX_USERS];
   read_user(users, &num_users);
+  insertion_sort_users(users, num_users);
   for (int i = 0; i < num_users; i++) {
     printf("ID: %d, Username: %s\n", users[i].id, users[i].username);
   }
@@ -185,6 +197,9 @@ void dynamic_array_users(){
   }
 }
 
+void new_friend(){
+  
+}
 /*
 void log_in_user() {
   FILE *fp;
