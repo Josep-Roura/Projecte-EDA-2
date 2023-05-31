@@ -28,13 +28,9 @@ void add_publication(){
   getchar();
   printf("Foto:  ");
   scanf("%256[^\n]s", new_publication.photo);
-
-
-  // Inicializamos el stack.
-  publication_stack stack;
-  stack.top = - 1;
   
-  // Añadir los datos al archivo. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
+  
+// Añadir los datos al archivo. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
 
    // Abrir el archivo en modo lectura y escritura
   FILE *file2 = fopen("./Data/Publications.txt", "a+");
@@ -66,27 +62,27 @@ void add_publication(){
 
   
   // Escribir los datos en el archivo.
-  fprintf(file2, "\n%d, %s, %s, %s, %s, %s, %s, %s",
+  fprintf(file2, "\n%d · %s · %s · %s · %s · %s · %s · %s",
 new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo,dateActual);
 
   // Cerrar el archivo.
   fclose(file2);
 
   // Añadimos la publiación al stack.
-  stack.top++;
-  stack.publications[stack.top] = new_publication;
+  //stack.top++;
+  //stack.publications[stack.top] = new_publication;
 
-  int i;
-  for (i = 0; i <= stack.top; i++) {
-  printf("Publicación %d: %s - %s\n", stack.publications[i].id_publication, stack.publications[i].album,
-         stack.publications[i].artist);
-}
+  //int i;
+  //for (i = 0; i <= stack.top; i++) {
+  //printf("Publicación %d: %s - %s\n", stack.publications[i].id_publication, stack.publications[i].album,
+         //stack.publications[i].artist);
+//}
   
 }
 
-
+/*
 void list_publications() {
-  // Estructura archivo de texto : id, album, artist, label, year, description, photo, user id, publication date.
+  // Estructura linea de archivo de texto : id · album · artist · label · year · description · photo · userid · username · publication date.
   // Creamos una función para que aparezcan todas las publicaciones de un usuario
 
   // Abrimos el archivo de las publicaciones y asignamos a cada uno de los elementos de la linea a su valor correspondiente en la estructura de la publicación 
@@ -109,7 +105,7 @@ void list_publications() {
     Publication *publication = malloc(sizeof(Publication));
     publication->UserData = malloc(sizeof(User)); 
     
-    sscanf(line, "%d, %256[^,]s, %256[^,]s, %256[^,]s, %256[^,]s, %256[^,]s, %256[^,]s, %d, %256[^,]s, %256[^,]s",
+    sscanf(line, "%d · %[^·]s · %[^·]s · %[^·]s · %[^·]s · %[^·]s %[^·]s · %d · %[^·]s · %[^\n]s",
     &publication->id_publication, publication->album, publication->artist,       
     publication->label, publication->year, publication->description, 
     publication->photo, &publication->UserData->id, publication->UserData->username, publication->release_date);
@@ -129,7 +125,7 @@ void list_publications() {
   int i = 0;
   while (i < num_publications){
     if (strcmp(all_publications[i]->UserData->username, user_name) == 0){
-      printf("%d,%s,%s,%s,%s,%s,%s,%d,%s\n", all_publications[i]->id_publication,     
+      printf("%d · %s · %s · %s · %s · %s · %s · %d · %s\n", all_publications[i]->id_publication,     
       all_publications[i]->album, all_publications[i]->artist, all_publications[i]->label, 
       all_publications[i]->year, all_publications[i]->description, all_publications[i]->photo, 
       all_publications[i]->UserData->id, all_publications[i]->release_date);
@@ -138,7 +134,86 @@ void list_publications() {
   }  
   fclose(file1);
 }
+ */
+
+PublicationNode* createPublicationNode() {
+    PublicationNode *node = (PublicationNode*)malloc(sizeof(PublicationNode));
+    node->UserData = (User*)malloc(sizeof(User));
+    node->next = NULL;
+    return node;
+}
+
+void insertPublication(PublicationNode **head, PublicationNode *node) {
+    if (*head == NULL) {
+        *head = node;
+    } else {
+        PublicationNode *current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = node;
+    }
+}
+
+void freePublicationList(PublicationNode *head) {
+    PublicationNode *current = head;
+    while (current != NULL) {
+        PublicationNode *temp = current;
+        current = current->next;
+        free(temp->UserData);
+        free(temp);
+    }
+}
+
+void list_publications() {
+    // Abrimos el archivo de publicaciones y asignamos a cada uno de los elementos de la línea a su valor correspondiente en la estructura de la publicación
+    FILE *file1 = fopen("./Data/Publications.txt", "r");
+
+    if (file1 == NULL) {
+        printf("Error: No se pudo abrir el archivo.\n");
+        return;
+    }
+
+    PublicationNode *head = NULL;
+    char line[MAX_LINE_LENGTH];
+
+    while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
+        PublicationNode *node = createPublicationNode();
+        sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %d · %[^ ·] · %[^\n]",
+               &node->id_publication, node->album, node->artist,
+               node->label, node->year, node->description,
+               node->photo, &node->UserData->id, node->UserData->username,
+               node->release_date);
+
+        insertPublication(&head, node);
+    }
+
+    fclose(file1);
+
+    // Pedimos el nombre del usuario del que se quieren listar las publicaciones
+    getchar();
+    char user_name[MAX_LINE_LENGTH];
+    printf("Introduzca el nombre del usuario: ");
+    fgets(user_name, sizeof(user_name), stdin);
+    user_name[strcspn(user_name, "\n")] = '\0';
 
 
+    // Buscamos las publicaciones que tengan el nombre de usuario ingresado y las imprimimos
+    PublicationNode *current = head;
+    while (current != NULL) {
+        if (strcmp(current->UserData->username, user_name) == 0) {
+            printf("%d · %s · %s · %s · %s · %s · %s · %d · %s · %s\n", current->id_publication,
+                   current->album, current->artist, current->label,
+                   current->year, current->description, current->photo,
+                   current->UserData->id, current->UserData->username, current->release_date);
+        }
+        current = current->next;
+    }
 
   
+    // Liberamos la memoria asignada para las publicaciones
+    freePublicationList(head);
+}
+
+
+

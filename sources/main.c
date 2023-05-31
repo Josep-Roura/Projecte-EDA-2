@@ -68,23 +68,27 @@ int main() {
               break;
           
             case 6:
-                if (log_in_completed == 1) {
-                  printf("Opción 6 seleccionada: Realizar una publicación.\n");
+                //if (log_in_completed == 1) {
+                  //printf("Opción 6 seleccionada: Realizar una publicación.\n");
+                  // Inicializamos el stack.
+                  //publication_stack stack;
+                  //stack.top = - 1;
                   add_publication();
-                }
-                else {
-                  printf("\nDebes iniciar sesión primero.\n");
-                }
+                  
+                //}
+                //else {
+                  //printf("\nDebes iniciar sesión primero.\n");
+                //}
               break;
           
             case 7:
-                if (log_in_completed == 1) {
-                  printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
+                //if (log_in_completed == 1) {
+                  //printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
                   list_publications();
-                }
-                else {
-                  printf("\nDebes iniciar sesión primero.\n");
-                }           
+                //}
+                //else {
+                  //printf("\nDebes iniciar sesión primero.\n");
+                //}           
               break;
           
             case 8:
