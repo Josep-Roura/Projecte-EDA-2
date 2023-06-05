@@ -8,7 +8,9 @@
 #define MAX_LINE_LENGTH 1024
 
 
-void add_publication(){
+Publication add_publication(){
+  User Actual;
+  Actual = user_log_in();
   
   Publication new_publication;
   getchar();
@@ -63,21 +65,16 @@ void add_publication(){
 
   
   // Escribir los datos en el archivo.
-  fprintf(file2, "\n%d · %s · %s · %s · %s · %s · %s · %s",
-new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo,dateActual);
+  fprintf(file2, "\n%d · %s · %s · %s · %s · %s · %s · %s · %s",
+new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo, Actual.username, dateActual);
 
   // Cerrar el archivo.
   fclose(file2);
 
-  // Añadimos la publiación al stack.
-  //stack.top++;
-  //stack.publications[stack.top] = new_publication;
+  return new_publication;  
+  
 
-  //int i;
-  //for (i = 0; i <= stack.top; i++) {
-  //printf("Publicación %d: %s - %s\n", stack.publications[i].id_publication, stack.publications[i].album,
-         //stack.publications[i].artist);
-//}
+  
   
 }
 
@@ -180,10 +177,10 @@ void list_publications() {
 
     while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
         Publication *node = createPublicationNode();
-        sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %d · %[^ ·] · %[^\n]",
+        sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^ ·] · %[^\n]",
                &node->id_publication, node->album, node->artist,
                node->label, node->year, node->description,
-               node->photo, &node->UserData->id, node->UserData->username,
+               node->photo, node->UserData->username,
                node->release_date);
 
         insertPublication(&head, node);
@@ -203,10 +200,10 @@ void list_publications() {
     Publication *current = head;
     while (current != NULL) {
         if (strcmp(current->UserData->username, user_name) == 0) {
-            printf("%d · %s · %s · %s · %s · %s · %s · %d · %s · %s\n", current->id_publication,
+            printf("%d · %s · %s · %s · %s · %s · %s · %s · %s\n", current->id_publication,
                    current->album, current->artist, current->label,
                    current->year, current->description, current->photo,
-                   current->UserData->id, current->UserData->username, current->release_date);
+                   current->UserData->username, current->release_date);
         }
         current = current->next;
     }

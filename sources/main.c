@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 int main() {
+  
   /*
     Graph graph;
     createGraph(&graph);
@@ -19,9 +20,15 @@ int main() {
     // Se muestra el mensaje de bienvenida.
     printf("Bienvenidos a --nom aplicacio--, nuestra red social de música!\n");
 
+    
     int option = 0;
     int log_in_completed = 0;
     User Actual;
+    Publication new_publication;
+
+    publication_stack stack;
+    stack.top = -1;
+    
     do {
         show_menu();
         printf("Ingrese la opción deseada: ");
@@ -48,6 +55,7 @@ int main() {
                 Actual = user_log_in();
                 log_in_completed = 1;
                 printf("%s", Actual.username);
+               
                 // Aquí irá el código para operar como un usuario específico.
                 break;
             case 4: //
@@ -74,8 +82,16 @@ int main() {
                 if (log_in_completed == 1) {
                   printf("Opción 6 seleccionada: Realizar una publicación.\n");
                   
-                  add_publication();
-                  
+                  new_publication = add_publication();
+                  // Añadimos la publiación al stack.
+                  stack.top++;
+                  stack.publications[stack.top] = new_publication;
+
+                  int i;
+                  for (i = 0; i <= stack.top; i++) {
+                      printf("Publicación %d: %s - %s\n",           stack.publications[i].id_publication, stack.publications[i].album,
+         stack.publications[i].artist);
+                  }
                 }
                 else {
                   printf("\nDebes iniciar sesión primero.\n");
@@ -83,13 +99,13 @@ int main() {
               break;
           
             case 7:
-                //if (log_in_completed == 1) {
-                  //printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
+                if (log_in_completed == 1) {
+                  printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
                   list_publications();
-                //}
-                //else {
-                  //printf("\nDebes iniciar sesión primero.\n");
-                //}           
+                }
+                else {
+                  printf("\nDebes iniciar sesión primero.\n");
+                }           
               break;
           
             case 8: 

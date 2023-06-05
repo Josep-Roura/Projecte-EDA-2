@@ -34,7 +34,7 @@ typedef struct{
 } w_count;
 
 
-void add_publication(); // Función utilizada para añadir una nueva publicación al archivo txt.
+Publication add_publication(); // Función utilizada para añadir una nueva publicación al archivo txt.
 void list_publications(); // Función utilizada para imprimir todas las publicaciones de un usuario.
 
 Publication* createPublicationNode();
