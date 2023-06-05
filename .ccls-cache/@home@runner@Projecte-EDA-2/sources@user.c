@@ -7,16 +7,44 @@
 #define MAX_LINE_LENGTH 1024
 
 void add_new_user() {
-
   int Age;
   char Username[MAX_LENGTH], Password[MAX_LENGTH], Email[MAX_LENGTH],
       Location[MAX_LENGTH], Genre1[MAX_LENGTH], Genre2[MAX_LENGTH],
       Genre3[MAX_LENGTH];
+
+  int num_users = 0;
+  User users[MAX_USERS];
+  read_user(users, &num_users);
+  
+  while (1) {
   printf("\nIntroducir nuevo nombre de usuario:");
   scanf("%s", Username);
 
-  printf("\nIntroducir contraseña:");
-  scanf("%s", Password);
+  int usuario_duplicado = 0;
+  for (int i = 0; i < num_users; i++) {
+    if (strcmp(users[i].username, Username) == 0) { // Usuario con este nombre encontrado.
+      usuario_duplicado = 1; 
+      break;
+    }
+  }
+
+  if (usuario_duplicado) {
+    printf("\nUsuario %s ya registrado. Elige un nombre de usuario distinto.\n", Username);
+  } else {
+    break;  // Nombre de usuario válido, salir del bucle.
+  }
+}
+
+  while (1) {
+    printf("\nIntroducir contraseña (6-20 caracteres):");
+    scanf("%s", Password);
+
+    if (strlen(Password) >= 6 && strlen(Password) <= 20) {
+      break; // La longitud de la contraseña es válida, salir del bucle.
+    }
+    printf("La contraseña debe tener entre 6 y 20 caracteres. Inténtalo de "
+           "nuevo.\n");
+  }
 
   printf("\nIntroducir edad:");
   scanf("%d", &Age);
@@ -107,18 +135,30 @@ void read_user(User *users, int *num_users) {
 
   fclose(file);
 }
+
 void insertion_sort_users(User users[], int num_users) {
   int i, j;
-  for (i= 1; i < num_users; i++) { // Recorremos el array de usuarios a partir del segundo usuario.
-    User key = users[i]; // Creanos una variable key tipo User para almacenar el índice del usuario actual. Este usuario lo utilizaremos para hacer comparaciones e ir realizando el proceso de inserción
-    j = i - 1; // Inicializamos j con el índice anterior de i y lo utilizaremos para comparar el usuario actual con los usuarios anteriores en el array y y realizar el desplazamiento hacia la derecha.
-    while (j >= 0 & strcmp(users[j].username, key.username) > 0) { // Verificamos si el usuario j debe desplazarse hacia la derecha del array.
-      users[j+1] = users[j]; // Lo desplazamos hacia la derecha.
-      j = j - 1; // Decrementamos j para seguir comparando los usuarios anteriores.
+  for (i = 1; i < num_users;
+       i++) { // Recorremos el array de usuarios a partir del segundo usuario.
+    User key =
+        users[i]; // Creanos una variable key tipo User para almacenar el índice
+                  // del usuario actual. Este usuario lo utilizaremos para hacer
+                  // comparaciones e ir realizando el proceso de inserción
+    j = i - 1; // Inicializamos j con el índice anterior de i y lo utilizaremos
+               // para comparar el usuario actual con los usuarios anteriores en
+               // el array y y realizar el desplazamiento hacia la derecha.
+    while (j >= 0 & strcmp(users[j].username, key.username) >
+                        0) {   // Verificamos si el usuario j debe desplazarse
+                               // hacia la derecha del array.
+      users[j + 1] = users[j]; // Lo desplazamos hacia la derecha.
+      j = j -
+          1; // Decrementamos j para seguir comparando los usuarios anteriores.
     }
-    users[j+1] = key; // El usuario key se coloca en la posición correcta dentro de los usuarios anteriores ya ordenados.
+    users[j + 1] = key; // El usuario key se coloca en la posición correcta
+                        // dentro de los usuarios anteriores ya ordenados.
   }
 }
+
 // Imprimir ID y nombre de usuario de cada usuario ordenado.
 void print_users() {
   int num_users = 0;
@@ -126,141 +166,95 @@ void print_users() {
   read_user(users, &num_users);
   insertion_sort_users(users, num_users);
   for (int i = 0; i < num_users; i++) {
-    printf("ID: %d, Username: %s\n", users[i].id, users[i].username);
+    printf("%d Username : %s\n", i + 1, users[i].username);
   }
 }
 
-int user_log_in() {
+User user_log_in() {
   char *list_usernames[MAX_USERS];
   User users[MAX_USERS];
   int num_users = 0;
   read_user(users, &num_users);
   for (int i = 0; i < num_users; i++) {
     list_usernames[i] = users[i].username;
-    // Convertimos los datos de nombres de usuario en una lista para que sea más facil trabajar con ellos.
+    // Convertimos los datos de nombres de usuario en una lista para que sea más fácil trabajar con ellos.
   }
+  
   int proof_username = 0;
   char username[MAX_USERS];
   int key = 0;
   printf("\nOperar como usuario:");
   scanf("%s", username);
+  
   while (key < num_users) {
-    if (strcmp(list_usernames[key], username) == 0) { // Comprobamos si existe el usuario. Esta parte de código cuenta como implementación del algoritmo Linear Search.
+    if (strcmp(list_usernames[key], username) == 0) {
       printf("\nUsuario %s encontrado.\n", username);
       proof_username = 1;
       break;
     }
     key++;
   }
-  key++; // Esta key nos indicará que usuario listado está haciendo el login.
+  key++; // Esta key nos indicará qué usuario listado está haciendo el login.
+  
   if (proof_username == 0) {
     printf("\nUsuario %s no encontrado.\n", username);
+    User emptyUser;
+    strcpy(emptyUser.username, "");
+    strcpy(emptyUser.password, "");
+    return emptyUser;
   }
-  if (proof_username == 1) {
-    char *list_passwords[MAX_USERS];
-    for (int i = 0; i < num_users; i++) {
-      list_passwords[i] = users[i].password; // Convertimos los datos de contraseñas en una lista para que sea más facil trabajar con ellos.
-    }
-    int proof_password = 0;
-    char password[MAX_LENGTH];
+  
+  char *list_passwords[MAX_USERS];
+  for (int i = 0; i < num_users; i++) {
+    list_passwords[i] = users[i].password; // Convertimos los datos de contraseñas en una lista para que sea más fácil trabajar con ellos.
+  }
+  
+  int proof_password = 0;
+  char password[MAX_LENGTH];
+  
+  int tries = 0;
+  while (tries < 3) { 
     printf("Introducir contraseña:");
     scanf("%s", password);
+  
     for (int j = 0; j < num_users; j++) {
-      if ((strcmp(list_passwords[j], password) == 0) && (key-1 == j)) { // Comprobamos si existe el usuario y si se corresponde con su respectiva contraseña. Lo hacemos mediante la key.
+      if ((strcmp(list_passwords[j], password) == 0) && (key - 1 == j)) {
         printf("\nBienvenid@ %s.\n", username);
-        proof_password = 1; 
-        return 1;
+        proof_password = 1;
+        return users[j];
       }
     }
-    if (proof_password == 0) {
-      printf("La contraseña es incorrecta.\n");
-    }
+    if (proof_password == 0) { // Si la contraseña es incorrecta le dejara probar otra vez. Hasta 3 veces.
+      printf("\nLa contraseña es incorrecta.\n");
+      tries ++;
+      }
   }
-  return 0;
+  printf("\nHas fallado la contraseña 3 veces. Se te he redireccionado al menú principal\n");
 }
 
-void dynamic_array_users(){
+
+
+
+void dynamic_array_users() {
   Node *head = NULL;
   User new_user;
-  Node *new_node = (Node*) malloc(sizeof(Node)); // Asignamos espacio en la memoria para almacenar la información de un nuevo usuario. 
-  new_node->user = new_user; 
+  Node *new_node = (Node *)malloc(
+      sizeof(Node)); // Asignamos espacio en la memoria para almacenar la
+                     // información de un nuevo usuario.
+  new_node->user = new_user;
   new_node->next = NULL;
-  if (head == NULL) { // Si la lista está vacía establece head como el primer nodo.
+  if (head ==
+      NULL) { // Si la lista está vacía establece head como el primer nodo.
     head = new_node;
-  }
-  else {
+  } else {
     Node *current = head;
-    while (current->next != NULL) { //  Si la lista no está vacía, recorre la lista hasta el último nodo y establece su puntero next en el nuevo nodo.
+    while (current->next !=
+           NULL) { //  Si la lista no está vacía, recorre la lista hasta el
+                   //  último nodo y establece su puntero next en el nuevo nodo.
       current = current->next;
     }
     current->next = new_node;
   }
 }
 
-void new_friend(){
-  
-}
-/*
-void log_in_user() {
-  FILE *fp;
-  char username[MAX_LENGTH];
-  User users;
-  int num_users = 20;
-  fp = fopen("./Data/Users.txt", "r");
-  if (fp == NULL) {
-    printf("Error. No se pudo abrir el archivo.\n");
-    return;
-  }
-  copy_usernames_to_file(&users, num_users);
-  printf("Operar como usuario: ");
-  scanf("%s", username);
-  int proof = linear_search_by_username(username);
-  printf("%d",proof);
-  fclose(fp);
-}
 
-void copy_usernames_to_file(User *users, int num_users) {
-  FILE *outfile =
-      fopen("./Data/Usernames.txt",
-            "w"); // Creamos un archivo y lo abrimos en modo escritura.
-  if (outfile == NULL) {
-    printf("Error. No se pudo abrir el archivo.\n");
-    return;
-  }
-  read_user(users, &num_users); // Leemos los usuarios del archivo y guardamos
-                                // sus datos en estructuras de datos.
-  for (int i = 0; i < num_users; i++) {
-    fprintf(
-        outfile, "%s\n",
-        users[i].username); // Copiamos en el archivo los nombres de usuarios.
-  }
-  fclose(outfile); // Cerramos el archivo.
-}
-
-int linear_search_by_username(char *username) {
-  FILE *file =
-      fopen("./Data/Usernames.txt", "r"); // Abrimos el archivo con los nombres
-                                          // de usuarios creado anteriormente.
-  if (file == NULL) {
-    printf("Error. No se puede abrir el archivo.\n");
-    return 0;
-  }
-
-  char line[MAX_LENGTH];
-  while (fgets(line, MAX_LENGTH, file) !=
-         NULL) { // Analizamos todo el archivo hasta llegar al final.
-    line[strcspn(line, "\r\n")] =
-        0; // Eliminamos el salto de línea al final de la línea.
-    if (strcmp(line, username) ==
-        0) { // Si el usuario que buscamos coincide con el texto de la línea lo
-             // indicamos por pantalla.
-      printf("Usuario %s encontrado.", username);
-      fclose(file); // Cerramos el archivo.
-      return 1;
-    }
-  }
-  printf("Usuario %s no encontrado.", username);
-  fclose(file);
-  return 0; // El usuario no fue encontrado.
-}
-*/

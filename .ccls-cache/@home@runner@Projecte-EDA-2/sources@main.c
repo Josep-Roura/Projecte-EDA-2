@@ -21,6 +21,7 @@ int main() {
 
     int option = 0;
     int log_in_completed = 0;
+    User Actual;
     do {
         show_menu();
         printf("Ingrese la opción deseada: ");
@@ -44,13 +45,15 @@ int main() {
                 break;
             case 3: // DONE
                 printf("Opción 3 seleccionada: Operar como un usuario específico.\n"); // Eric
-                log_in_completed = user_log_in();
+                Actual = user_log_in();
+                log_in_completed = 1;
+                printf("%s", Actual.username);
                 // Aquí irá el código para operar como un usuario específico.
                 break;
             case 4: //
                 if (log_in_completed == 1) {
                   printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n");
-                  new_friend();
+                  void new_friend();
                 }
                 else {
                   printf("\nDebes iniciar sesión primero.\n");
@@ -68,17 +71,15 @@ int main() {
               break;
           
             case 6:
-                //if (log_in_completed == 1) {
-                  //printf("Opción 6 seleccionada: Realizar una publicación.\n");
-                  // Inicializamos el stack.
-                  //publication_stack stack;
-                  //stack.top = - 1;
+                if (log_in_completed == 1) {
+                  printf("Opción 6 seleccionada: Realizar una publicación.\n");
+                  
                   add_publication();
                   
-                //}
-                //else {
-                  //printf("\nDebes iniciar sesión primero.\n");
-                //}
+                }
+                else {
+                  printf("\nDebes iniciar sesión primero.\n");
+                }
               break;
           
             case 7:
@@ -91,19 +92,38 @@ int main() {
                 //}           
               break;
           
-            case 8:
-                printf("Opción 8 seleccionada: Mostrar términos de uso.\n");
+            case 8: 
+                printf("Opción 8 seleccionada: Realizar conteo de palabras.\n");
+
+                char word[50];  
+                FILE *file = fopen("./Data/Publications.txt", "r");
+                if (file == NULL){
+                  printf("Error. No se pudo abrir el archivo.");
+                  return 1;
+                }
+                
+                while (fscanf(file, "%s", word) != EOF){
+                  add_word(word);
+                }
+
+                fclose(file);
+
+                ranking_words();
+                break;
+          
+            case 9:
+                printf("Opción 9 seleccionada: Mostrar términos de uso.\n");
                 terms_of_use();
                 break;
-            case 9:
-                printf("Opción 9 seleccionada: Salir (Terminar ejecución).\n");
+            case 10:
+                printf("Opción 10 seleccionada: Salir (Terminar ejecución).\n");
                 break;
 
             default:
                 printf("\nOpción no válida. Por favor, ingrese una opción válida.\n");
                 break;
         }
-    } while (option != 9); 
+    } while (option != 10); 
 
   return 0; 
 

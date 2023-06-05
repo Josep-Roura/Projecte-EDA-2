@@ -21,4 +21,3 @@
 21,eric.mperezz,treballeda2,18,eric.matasp12@gmail.com,Barcelona,2023-05-12,rap,trap,drill
 22,francisco,franciscos,20,f.luc.aquaro@gmail.com,Barcelona,2023-05-18,Rock,Rap,Reggae
 23,josep.roura,Password,19,josep.roura01@gmail.com,Girona,2023-05-23,Pop,folk,techno
-24,francisco,francisco,20,f.luc.aquaro@gmail.com,Barcelona,2023-05-31,Rock,Rap,Reggae

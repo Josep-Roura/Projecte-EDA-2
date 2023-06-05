@@ -6,7 +6,7 @@
 
 // Estructura de las publicaciones
 
-typedef struct {
+typedef struct Publication{
   User *UserData;
   char artist[MAX_LENGTH];
   char label[MAX_LENGTH];
@@ -16,6 +16,7 @@ typedef struct {
   char photo[MAX_LENGTH];
   char year[MAX_LENGTH];
   int id_publication;
+  struct Publication *next;
 } Publication;  
 
 //Estructura del stack.
@@ -25,6 +26,20 @@ typedef struct {
   int top;
 } publication_stack;
 
+// Estructura para el diccionario y el conteo de palabras
+
+typedef struct{
+  char word[MAX_LENGTH];
+  int count;
+} w_count;
+
+
 void add_publication(); // Función utilizada para añadir una nueva publicación al archivo txt.
 void list_publications(); // Función utilizada para imprimir todas las publicaciones de un usuario.
 
+Publication* createPublicationNode();
+void insertPublication(Publication **head, Publication *node);
+void freePublicationList(Publication *head); 
+
+void add_word (const char *word);
+void ranking_words();
