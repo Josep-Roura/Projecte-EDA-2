@@ -73,75 +73,17 @@ new_publication.id_publication,new_publication.album,new_publication.artist,new_
 
   return new_publication;  
   
-
-  
-  
 }
 
-/*
-void list_publications() {
-  // Estructura linea de archivo de texto : id · album · artist · label · year · description · photo · userid · username · publication date.
-  // Creamos una función para que aparezcan todas las publicaciones de un usuario
 
-  // Abrimos el archivo de las publicaciones y asignamos a cada uno de los elementos de la linea a su valor correspondiente en la estructura de la publicación 
-  
-  Publication *all_publications[MAX_PUBLICATIONS]; 
-  FILE *file1 = fopen("./Data/Publications.txt", "r");
-  
-  if (file1 == NULL) {
-    printf("Error. No se pudo abrir el archivo.\n");
-    return;
-  }
-
-  // Creamos dos variables, una (num_publications) para contabilizar el número de publicaciones y la otra para diferenciar las distintas lineas de la publicación.
-  
-  int num_publications = 0;
-  char line[MAX_LINE_LENGTH];
-
-  // Con una estructura while leemos la linea del archivo y se lo asignamos a la publicación.
-  while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
-    Publication *publication = malloc(sizeof(Publication));
-    publication->UserData = malloc(sizeof(User)); 
-    
-    sscanf(line, "%d · %[^·]s · %[^·]s · %[^·]s · %[^·]s · %[^·]s %[^·]s · %d · %[^·]s · %[^\n]s",
-    &publication->id_publication, publication->album, publication->artist,       
-    publication->label, publication->year, publication->description, 
-    publication->photo, &publication->UserData->id, publication->UserData->username, publication->release_date);
-    
-    all_publications[num_publications] = publication;
-    num_publications++;
-  }
-
-// Pedimos el nombre del usuario del que se quieren listar las publicaciones
-
-  char user_name[50];
-  printf("Introduzca el nombre del usuario: ");
-  scanf("%s", user_name);
-
-// Después de esto, buscamos que publicaciones tienen como id de usuario la que se está buscando y las imprimimos
-
-  int i = 0;
-  while (i < num_publications){
-    if (strcmp(all_publications[i]->UserData->username, user_name) == 0){
-      printf("%d · %s · %s · %s · %s · %s · %s · %d · %s\n", all_publications[i]->id_publication,     
-      all_publications[i]->album, all_publications[i]->artist, all_publications[i]->label, 
-      all_publications[i]->year, all_publications[i]->description, all_publications[i]->photo, 
-      all_publications[i]->UserData->id, all_publications[i]->release_date);
-    }
-    i++;
-  }  
-  fclose(file1);
-}
- */
-
-Publication* createPublicationNode() {
+Publication* create_node() {
     Publication *node = (Publication*)malloc(sizeof(Publication));
     node->UserData = (User*)malloc(sizeof(User));
     node->next = NULL;
     return node;
 }
 
-void insertPublication(Publication **head, Publication *node) {
+void insert_publication(Publication **head, Publication *node) {
     if (*head == NULL) {
         *head = node;
     } else {
@@ -153,7 +95,7 @@ void insertPublication(Publication **head, Publication *node) {
     }
 }
 
-void freePublicationList(Publication *head) {
+void free_list(Publication *head) {
     Publication *current = head;
     while (current != NULL) {
         Publication *temp = current;
@@ -176,14 +118,14 @@ void list_publications() {
     char line[MAX_LINE_LENGTH];
 
     while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
-        Publication *node = createPublicationNode();
+        Publication *node = create_node();
         sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^ ·] · %[^\n]",
                &node->id_publication, node->album, node->artist,
                node->label, node->year, node->description,
                node->photo, node->UserData->username,
                node->release_date);
 
-        insertPublication(&head, node);
+        insert_publication(&head, node);
     }
 
     fclose(file1);
@@ -210,14 +152,14 @@ void list_publications() {
 
   
     // Liberamos la memoria asignada para las publicaciones
-    freePublicationList(head);
+    free_list(head);
 }
 
 
 w_count dictionary[MAX_LINE_LENGTH*MAX_PUBLICATIONS];
 int n_words = 0;
 
-void add_word (const char *word){
+void add_word(const char *word){
   int i;
   int length = strlen(word);
   

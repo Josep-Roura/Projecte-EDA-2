@@ -37,9 +37,9 @@ typedef struct{
 Publication add_publication(); // Función utilizada para añadir una nueva publicación al archivo txt.
 void list_publications(); // Función utilizada para imprimir todas las publicaciones de un usuario.
 
-Publication* createPublicationNode();
-void insertPublication(Publication **head, Publication *node);
-void freePublicationList(Publication *head); 
+Publication* create_node();
+void insert_publication(Publication **head, Publication *node);
+void free_list(Publication *head); 
 
 void add_word (const char *word);
 void ranking_words();
