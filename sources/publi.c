@@ -138,7 +138,7 @@ void list_publications(User user) {
 
 
 
-    // Buscamos las publicaciones que tengan el nombre de usuario ingresado y las imprimimos
+    // Buscamos las publicaciones que tengan el nombre de usuario ingresado y las imprimimos.
     Publication *current = head;
     while (current != NULL) {
         if (strcmp(current->UserData->username, user.username) == 0) {
@@ -155,31 +155,35 @@ void list_publications(User user) {
     free_list(head);
 }
 
-// Una vez implementadas las funciones auxiliares, implementaremos la función que listará las publicaciones.
+// 8. LISTAR LAS PUBLICACIONES DE OTRO USUARIO.
+// Esta función es igual que la anterior pero recibe un nombre de usuario por consola e imprime sus publicaciones. 
+
 void list_publications_any_user() { 
-    // Abrimos el archivo de publicaciones y asignamos a cada uno de los elementos de la línea a su valor correspondiente en la estructura de la publicación
+    
+  // Abrimos el archivo de publicaciones y asignamos a cada uno de los elementos de la línea a su valor correspondiente en la estructura de la publicación.
     FILE *file1 = fopen("./Data/Publications.txt", "r");
 
-    if (file1 == NULL) {
+    if (file1 == NULL) { // Si no se puede abrir el archivo, se imprime el error y se hace return. 
         printf("Error: No se pudo abrir el archivo.\n");
         return;
     }
 
-    Publication *head = NULL;
-    char line[MAX_LINE_LENGTH];
+    Publication *head = NULL; // Establecemos como nula la cabeza de la lista.
+    char line[MAX_LINE_LENGTH]; // Creamos la variable 'line' que tendrá longitud máxima 'MAX_LINE_LENGTH' y que servirá para leer la información de cada línea del archivo de las publicaciones. Esta línea representará cad publicación en la línea.
 
-    while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
+  // Con un bucle while, extraemos todas las variables de la publicación para separarlas y asignarlas a la estructura del nodo. Las variables de la publicación están separadas por un carácter '·'.  
+  while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
         Publication *node = create_node();
         sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^ ·] · %[^\n]",
                &node->id_publication, node->album, node->artist,
                node->label, node->year, node->description, node->track, node->UserData->username, node->release_date);
 
-        insert_publication(&head, node);
+        insert_publication(&head, node); // Tras esto, utilizamos esta función auxiliar para insertar el nodo con las variables recién asignadas en la lista dinámica.
     }
 
     fclose(file1);
 
-    // Pedimos el nombre del usuario del que se quieren listar las publicaciones
+    // Pedimos el nombre del usuario del que se quieren listar las publicaciones y lo modificamos para que el strcmp posterior se pueda hacer correctamente
     getchar();
     char user_name[MAX_LINE_LENGTH];
     printf("Introduzca el nombre del usuario: ");
@@ -204,8 +208,12 @@ void list_publications_any_user() {
     free_list(head);
 }
 
+
+// 9. REALIZAR CONTEO DE PALABRAS
+
+// Creamos el diccionario con estructura w_count y longitud igual al numero de publicaciones por el máximo de publicaciones.
 w_count dictionary[MAX_LINE_LENGTH*MAX_PUBLICATIONS];
-int n_words = 0;
+int n_words = 0; // Variable que contabiliza el número de palabras.
 
 void add_word(const char *word){
   int i;
