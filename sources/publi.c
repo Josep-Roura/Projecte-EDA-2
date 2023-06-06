@@ -138,13 +138,18 @@ void list_publications(User user) {
 
 
     // Buscamos las publicaciones que tengan el nombre de usuario ingresado y las imprimimos.
+    int num_pub = 0; // Variable que verifica si tiene alguna publicación
     Publication *current = head;
     while (current != NULL) {
         if (strcmp(current->UserData->username, user.username) == 0) {
-            printf("\n%d · %s· %s· %s· %s· %s· %s· %s · %s\n", current->id_publication, current->album, current->artist, current->label, current->year, current->description, current->track, current->UserData->username, current->release_date);
+            printf("\n%d · %s· %s· %s· %s· %s· %s· %s · %s\n", current->id_publication, current->album, current->artist, current->label, current->year, current->description, current->track, current->UserData->username, current->release_date); 
+            num_pub++;
         }
         current = current->next;
     }
+    if (num_pub == 0){
+        printf("\nEl usuario deseado no tiene publicaciones.\n");
+    } 
 
   
     // Liberamos la memoria asignada para las publicaciones
@@ -188,12 +193,17 @@ void list_publications_any_user() {
 
 
     // Buscamos las publicaciones que tengan el nombre de usuario ingresado y las imprimimos
+    int n_pub = 0; // Variable que verifica si tiene alguna publicación
     Publication *current = head;
     while (current != NULL) {
         if (strcmp(current->UserData->username, user_name) == 0) {
             printf("\n%d · %s· %s· %s· %s· %s· %s· %s · %s\n", current->id_publication, current->album, current->artist, current->label, current->year, current->description, current->track, current->UserData->username, current->release_date);
-        }
+          n_pub++;
+        } 
         current = current->next;
+    } 
+    if (n_pub == 0){
+      printf("\nEl usuario deseado no tiene publicaciones.\n");
     }
 
   

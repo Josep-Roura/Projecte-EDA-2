@@ -59,7 +59,7 @@ int main() {
             case 4:
                 if (log_in_completed == 1) {
                     printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n");
-                    void new_friend();
+                    new_friend();
                 }
                 else {
                     printf("\nDebes iniciar sesión primero.\n");
