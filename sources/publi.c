@@ -9,6 +9,9 @@
 
 // 6. AÑADIR PUBLICACIÓN
 
+// Estructura de la publicación:
+// nº_publicación · álbum · artista · sello discográfico · año de publicación del album · descripción · canción favorita · usuario · fecha de la publicación.
+
 Publication add_publication(User user) { // Función utilizada para añadir una publicación a través de la consola. Se añade al archivo Publications.txt y se añade al stack en el archivo main.c. La función recibe un usuario (que será el usuario logueado a través de la opción 3.) 
   
   // A través de diversos 'scanf', recogemos la información a través de la consola y se la asignamos a los distintos atributos de la publicación 'new_publication'. 
@@ -73,14 +76,14 @@ new_publication.id_publication,new_publication.album,new_publication.artist,new_
   // Cerrar el archivo.
   fclose(file2);
 
-  return new_publication; // La función devuelve un objeto de estructura Publication que utilizaremos en el main para añadirlo al stack.
+  return new_publication; // La función devuelve una publicación que utilizaremos en el main para añadirlo al stack.
   
 }
 
 
 // 7. LISTAR LAS PUBLICACIONES DEL USUARIO REGISTRADO
 
-// Ahora implementaremos una serie de funcionaremos que utilizaremos en la implementación de la lista dinámica para listar las publicaciones del usuario logeado.
+// Ahora implementaremos una serie de funciones que utilizaremos en la implementación de la lista dinámica para listar las publicaciones del usuario logeado.
 Publication* create_node() { //Función que crea el nodo de la lista dinámica
     Publication *node = (Publication*)malloc(sizeof(Publication)); // Reservamos espacio de memoria para el nodo.
     node->UserData = (User*)malloc(sizeof(User)); // Reservamos espacio de memoria para el usuario del que se listan las publicaciones.

@@ -12,7 +12,7 @@ void show_menu() {
     printf("4. Enviar solicitudes de amistad.\n");
     printf("5. Gestionar las solicitudes pendientes.\n");
     printf("6. Realizar una publicación y mostrar las publicaciones de la sesión actual.\n");
-    printf("7. Listar las publicaciones del usuario seleccionado.\n");
+    printf("7. Listar las publicaciones del usuario.\n");
     printf("8. Listar las publicaciones de otro usuario.\n");
     printf("9. Realizar conteo de palabras.\n");
     printf("10. Mostrar los términos de uso.\n");
