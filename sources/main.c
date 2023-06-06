@@ -81,69 +81,66 @@ int main() {
             case 6: // Opción para añadir publicaciones y mostrar las publicaciones hechas en esta sesión. 
               
                 if (log_in_completed == 1) {
-                  printf("Opción 6 seleccionada: Realizar una publicación y mostrar las publicaciones de la sesión actual.\n");
+                    printf("Opción 6 seleccionada: Realizar una publicación y mostrar las publicaciones de la sesión actual.\n");
 
-                  // La variable new_publication es fruto del return de la función add_publication en función del usuario registrado. 
-                  new_publication = add_publication(Actual);
+                    // La variable new_publication es fruto del return de la función add_publication en función del usuario registrado. 
+                    new_publication = add_publication(Actual);
                   
-                  // Añadimos la publiación al stack.
-                  stack.top++;
-                  stack.publications[stack.top] = new_publication;
-
-                  // Imprimimos las publicaciones que se encuentran en el stack, es decir, las publicaciones hechas en la sesión actual.
-                  int i;
-                  printf("\nPublicado en la sesión actual:\n");
-                  for (i = 0; i <= stack.top; i++) {
-                      printf("\n%d · %s · %s · %s · %s · %s · %s · %s\n", stack.publications[i].id_publication, stack.publications[i].album,
-         stack.publications[i].artist, stack.publications[i].label, stack.publications[i].year, stack.publications[i].description, stack.publications[i].track, Actual.username);
-                  }
+                    // Añadimos la publiación al stack.
+                    stack.top++;
+                    stack.publications[stack.top] = new_publication;
+  
+                    // Imprimimos las publicaciones que se encuentran en el stack, es decir, las publicaciones hechas en la sesión actual.
+                    int i;
+                    printf("\nPublicado en la sesión actual:\n");
+                    for (i = 0; i <= stack.top; i++) {
+                        printf("\n%d · %s · %s · %s · %s · %s · %s · %s\n", stack.publications[i].id_publication, stack.publications[i].album, stack.publications[i].artist, stack.publications[i].label, stack.publications[i].year, stack.publications[i].description, stack.publications[i].track, Actual.username);
+                    }
                 }
                 else {
-                  printf("\nDebes iniciar sesión primero.\n");
+                    printf("\nDebes iniciar sesión primero.\n");
                 }
                 break;
           
             case 7: // Opción para listar las publicaciones del usuario que ha hecho log in.
                 if (log_in_completed == 1) {
-                  printf("Opción 7 seleccionada: Listar las publicaciones del usuario.\n");
-                  list_publications(Actual); // La función recibe el usuario que está logueado e imprime todas sus publicaciones.
-                }
-                else {
-                  printf("\nDebes iniciar sesión primero.\n");
+                    printf("Opción 7 seleccionada: Listar las publicaciones del usuario.\n");
+                    list_publications(Actual); // La función recibe el usuario que está logueado e imprime todas sus publicaciones.
+                } else {
+                    printf("\nDebes iniciar sesión primero.\n");
                 }           
                 break;
 
             case 8: // Opción para listar las publicaciones de cualquier usuario. Para poder hacerlo, hay que estar logueado antes.
                 if (log_in_completed == 1) {
-                  printf("Opción 8 seleccionada: Listar las publicaciones de otro usuario. \n");
-                  list_publications_any_user(); // Se recibe por consola el nombre de usuario y se muestran todas sus publicaciones.
-                }
-                else {
-                  printf("\nDebes iniciar sesión primero.\n");
+                    printf("Opción 8 seleccionada: Listar las publicaciones de otro usuario. \n");
+                    list_publications_any_user(); // Se recibe por consola el nombre de usuario y se muestran todas sus publicaciones.
+                } else {
+                    printf("\nDebes iniciar sesión primero.\n");
                 }           
                 break;
           
             case 9: // Opción para imprimir las 10 palabras más usadas en las publicaciones. Se usará para ello un diccionario ordenado. 
                 if (log_in_completed == 1) { // Se necesitará estar logueado para acceder a esta información.
-                printf("Opción 9 seleccionada: Realizar conteo de palabras.\n");
+                    printf("Opción 9 seleccionada: Realizar conteo de palabras.\n");
 
-                char word[50]; // Se crea la variable word con una longitud más que suficiente de 50 carácteres.   
-                FILE *file = fopen("./Data/Publications.txt", "r"); // Se abre el archivo Publications en modo lectura. 
-                if (file == NULL){ // Si hay error abriendo el archivo se imprime el error y se termina la ejecución.
-                  printf("Error. No se pudo abrir el archivo.");
-                  return;
-                }
+                    char word[50]; // Se crea la variable word con una longitud más que suficiente de 50 carácteres.   
+                    FILE *file = fopen("./Data/Publications.txt", "r"); // Se abre el archivo Publications en modo lectura. 
+                    if (file == NULL){ // Si hay error abriendo el archivo se imprime el error y se termina la ejecución.
+                        printf("Error. No se pudo abrir el archivo.");
+                        return;
+                    }
                 
-                while (fscanf(file, "%s", word) != EOF){ // Se escanea el archivo entero hasta que se termina (EOF)
-                  add_word(word); // Todas las palabras pasan por esta función.
-                }
+                    while (fscanf(file, "%s", word) != EOF){ // Se escanea el archivo entero hasta que se termina (EOF)
+                        add_word(word); // Todas las palabras pasan por esta función.
+                    }
 
-                fclose(file); // Se cierra el archivo
+                    fclose(file); // Se cierra el archivo
 
-                ranking_words(); // Se utiliza esta función para imprimir las 10 palabras con más repeticiones, es decir, las 10 primeras palabras del diccionario.
+                    ranking_words(); // Se utiliza esta función para imprimir las 10 palabras con más repeticiones, es decir, las 10 primeras palabras del diccionario.
                 
                 } else {
-                  printf("\nDebes iniciar sesión primero.\n");
+                    printf("\nDebes iniciar sesión primero.\n");
                 }           
                 break;
 
