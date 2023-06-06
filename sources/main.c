@@ -80,17 +80,19 @@ int main() {
           
             case 6:
                 if (log_in_completed == 1) {
-                  printf("Opción 6 seleccionada: Realizar una publicación.\n");
+                  printf("Opción 6 seleccionada: Realizar una publicación y mostrar las publicaciones de la sesión actual.\n");
                   
-                  new_publication = add_publication();
+                  new_publication = add_publication(Actual);
+                  
                   // Añadimos la publiación al stack.
                   stack.top++;
                   stack.publications[stack.top] = new_publication;
 
                   int i;
+                  printf("\nPublicado en la sesión actual:\n");
                   for (i = 0; i <= stack.top; i++) {
-                      printf("Publicación %d: %s - %s\n",           stack.publications[i].id_publication, stack.publications[i].album,
-         stack.publications[i].artist);
+                      printf("\n%d · %s · %s · %s · %s · %s · %s · %s\n", stack.publications[i].id_publication, stack.publications[i].album,
+         stack.publications[i].artist, stack.publications[i].label, stack.publications[i].year, stack.publications[i].description, stack.publications[i].track, Actual.username);
                   }
                 }
                 else {
@@ -101,16 +103,26 @@ int main() {
             case 7:
                 if (log_in_completed == 1) {
                   printf("Opción 7 seleccionada: Listar las publicaciones del usuario seleccionado.\n");
-                  list_publications();
+                  list_publications(Actual);
+                }
+                else {
+                  printf("\nDebes iniciar sesión primero.\n");
+                }           
+              break;
+
+            case 8:
+                if (log_in_completed == 1) {
+                  printf("Opción 8 seleccionada: Listar las publicaciones de otro usuario. \n");
+                  list_publications_any_user();
                 }
                 else {
                   printf("\nDebes iniciar sesión primero.\n");
                 }           
               break;
           
-            case 8:
+            case 9:
               if (log_in_completed == 1) {
-                printf("Opción 8 seleccionada: Realizar conteo de palabras.\n");
+                printf("Opción 9 seleccionada: Realizar conteo de palabras.\n");
 
                 char word[50];  
                 FILE *file = fopen("./Data/Publications.txt", "r");
@@ -126,25 +138,27 @@ int main() {
                 fclose(file);
 
                 ranking_words();
-              }
-          else {
+                
+              } else {
                   printf("\nDebes iniciar sesión primero.\n");
-                }           
+              }           
               break;
-          
-            case 9:
-                printf("Opción 9 seleccionada: Mostrar términos de uso.\n");
+
+            
+            case 10:
+                printf("Opción 10 seleccionada: Mostrar términos de uso.\n");
                 terms_of_use();
                 break;
-            case 10:
-                printf("Opción 10 seleccionada: Salir (Terminar ejecución).\n");
+          
+            case 11:
+                printf("Opción 11 seleccionada: Salir (Terminar ejecución).\n");
                 break;
 
             default:
                 printf("\nOpción no válida. Por favor, ingrese una opción válida.\n");
                 break;
         }
-    } while (option != 10); 
+    } while (option != 11); 
 
   return 0; 
 

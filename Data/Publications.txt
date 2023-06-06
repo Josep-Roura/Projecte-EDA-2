@@ -1,13 +1,23 @@
-1 · Rumours · Fleetwood Mac · Warner Bros. Records · 1977 · El álbum más exitoso de Fleetwood Mac, con canciones como Dreams, Go Your Own Way y Don't Stop. · rumours.jpg · jaime · 2022-04-15
-2 · The Dark Side of the Moon · Pink Floyd · Harvest Records · 1973 · Uno de los álbumes más icónicos de todos los tiempos, con canciones como Money, Time y Us and Them. · darkside.jpg · marcos · 2022-05-01
-3 · Thriller · Michael Jackson · Epic Records · 1982 · El álbum más exitoso de todos los tiempos, con canciones como Billie Jean, Beat It y Thriller. · thriller.jpg · joseluis · 2022-05-08
-4 · Sgt. Pepper's Lonely Hearts Club Band · The Beatles · Parlophone Records · 1967 · Un álbum innovador que cambió la música pop para siempre, con canciones como With a Little Help from My Friends, Lucy in the Sky with Diamonds y A Day in the Life. · sgtpepper.jpg · maria · 2022-04-23
-5 · The Queen Is Dead · The Smiths · Rough Trade Records · 1986 · Un álbum clásico de los Smiths, con canciones como There Is a Light That Never Goes Out, Bigmouth Strikes Again y The Boy with the Thorn in His Side. · queen.jpg · jaime · 2022-04-30
-6 · Purple Rain · Prince and The Revolution · Warner Bros. Records · 1984 · La banda sonora de la película del mismo nombre, con canciones como When Doves Cry, Let's Go Crazy y Purple Rain. · purplerain.jpg · koba · 2022-05-07
-7 · OK Computer · Radiohead · Parlophone Records · 1997 · Un álbum innovador que desafió las convenciones del rock alternativo, con canciones como Karma Police, Paranoid Android y No Surprises. · okcomputer.jpg · marcos · 2022-05-14
-8 · Born to Run · Bruce Springsteen · Columbia Records · 1975 · Un álbum clásico de Springsteen que captura el espíritu del rock and roll, con canciones como Born to Run, Thunder Road y Jungleland. · borntorun.jpg · juanillo · 2022-05-21
-9 · The Joshua Tree · U2 · Island Records · 1987 · Un álbum que estableció a U2 como una de las bandas más grandes del mundo, con canciones como With or Without You, I Still Haven't Found What I'm Looking For y Where the Streets Have No Name. · joshuatree.jpg · luisito · 2022-05-28
-10 · Back in Black · AC/DC · Atlantic Records · 1980 · El primer álbum de AC/DC con el cantante Brian Johnson, con canciones como Back in Black, Hells Bells y Shoot to Thrill. · backinblack.jpg · juanillo · 2022-06-28
-11 · Druqks · Aphex Twin · Warp · 2001 · Uno de los mejores deiscos de IDM del año · fototfo · juanito · 
-12 · Druqks · Aphex Tin · Warp · 2001 · Disco de musica electronica · fotofoto · juanito · 2023-06-05
-13 · legend · bob marley · emi · 1980 · compilatorio de reggae · fotofoto · juanito · 2023-06-05
+1 · Rumours · Fleetwood Mac · Warner Bros. Records · 1977 · El álbum más exitoso de Fleetwood Mac, con canciones como Dreams, Go Your Own Way y Don't Stop. · Dreams · jaime · 2022-04-15
+2 · The Dark Side of the Moon · Pink Floyd · Harvest Records · 1973 · Uno de los álbumes más icónicos de todos los tiempos, con canciones como Money, Time y Us and Them. · Time · marcos · 2022-05-01
+3 · Thriller · Michael Jackson · Epic Records · 1982 · El álbum más exitoso de todos los tiempos, con canciones como Billie Jean, Beat It y Thriller. · Beat It · joseluis · 2022-05-08
+4 · Sgt. Pepper's Lonely Hearts Club Band · The Beatles · Parlophone Records · 1967 · Un álbum innovador que cambió la música pop para siempre, con canciones como With a Little Help from My Friends, Lucy in the Sky with Diamonds y A Day in the Life. · A Day in the Life · maria · 2022-04-23
+5 · The Queen Is Dead · The Smiths · Rough Trade Records · 1986 · Un álbum clásico de los Smiths, con canciones como There Is a Light That Never Goes Out, Bigmouth Strikes Again y The Boy with the Thorn in His Side. · Bigmouth Strikes Again · jaime · 2022-04-30
+6 · Purple Rain · Prince and The Revolution · Warner Bros. Records · 1984 · La banda sonora de la película del mismo nombre, con canciones como When Doves Cry, Let's Go Crazy y Purple Rain. · Purple Rain · koba · 2022-05-07
+7 · OK Computer · Radiohead · Parlophone Records · 1997 · Un álbum innovador que desafió las convenciones del rock alternativo, con canciones como Karma Police, Paranoid Android y No Surprises. · No Surprises · marcos · 2022-05-14
+8 · Born to Run · Bruce Springsteen · Columbia Records · 1975 · Un álbum clásico de Springsteen que captura el espíritu del rock and roll, con canciones como Born to Run, Thunder Road y Jungleland. · Jungleland · juanillo · 2022-05-21
+9 · The Joshua Tree · U2 · Island Records · 1987 · Un álbum que estableció a U2 como una de las bandas más grandes del mundo, con canciones como With or Without You, I Still Haven't Found What I'm Looking For y Where the Streets Have No Name. · With Or Without You · luisito · 2022-05-28
+10 · Back in Black · AC/DC · Atlantic Records · 1980 · El primer álbum de AC/DC con el cantante Brian Johnson, con canciones como Back in Black, Hells Bells y Shoot to Thrill. · Hells Bells · juanillo · 2022-06-28
+11 · druks · aphex · warp · 2001 · mejor disco · April 14th · juanito · 2023-06-06
+12 · lengend · bob marley · emi · 198 · regae del bueno · One Love · juanito · 2023-06-06
+13 · Chicago · Sutjan Stevens · EMI · 2005 · Uno de los mejores discos de folk del año · Chicago · juanito · 2023-06-06
+14 · Beat · King Crimson · Virgin · Dis2''001 · Disco Seminal del Rock Progresivo · Cadence and Cascade · juanito · 2023-06-06
+15 · Neptune's Liar · Drexciya · Tresor · 1997 · Disco más importante del techno de Detroit · Andrean Sand Dunes · juanito · 2023-06-06
+16 · Select Ambient Works · Aphex Twin · Apollo · 2005 · Disco presentación de Aphex Twin que cambió la musica electronica · Heliosphan · juanito · 2023-06-06
+17 · Sur · Otro · Humo Internacional · 2022 · Disco más importante del año en electrónica independiente · Thinking Of You · juanito · 2023-06-06
+18 · El destello · Tord · 1999 · 2021 · Disco de punk rock de la banda catalana revelación · Sin miedo · juanito · 2023-06-06
+19 · Dreams · The Cramberries · EMI · 1995 · Disco de pop y rock muy importante · When You're Gone[Dne · juanito · 2023-06-06
+20 · Libertinaje · Bersuit Vergarabat · Sol · 1999 · Disco que llevó a la fama a [Dl grupo argentino · Murguita del Sur · juanito · 2023-06-06
+21 · After Chabon · Sumo · Warner · 1987 · Disco más importante del crupo argentino · No llores · juanito · 2023-06-06
+22 · After Chabon · Sumo · EMI · 1988 · Disco ultimo de sumo antes de la muerte de Luca Prodan · No tan distintos · juanito · 2023-06-06
+23 · Diskont94 · Oval · Mille Plateaux · 1995 · Disco imprescindible de Glitch · Shop Store · juanito · 2023-06-06

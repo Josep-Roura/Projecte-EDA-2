@@ -82,7 +82,7 @@ int main() {
                 if (log_in_completed == 1) {
                   printf("Opción 6 seleccionada: Realizar una publicación.\n");
                   
-                  new_publication = add_publication();
+                  new_publication = add_publication(Actual);
                   // Añadimos la publiación al stack.
                   stack.top++;
                   stack.publications[stack.top] = new_publication;

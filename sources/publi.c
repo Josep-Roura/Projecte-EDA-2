@@ -7,14 +7,14 @@
 #define MAX_LENGTH 256
 #define MAX_LINE_LENGTH 1024
 
+// 6. Añadir publicaciones
 
-Publication add_publication(){
-  User Actual;
-  Actual = user_log_in();
+Publication add_publication(User user) { // Función utilizada para añadir una publicación a través de la consola. Se añade al archivo Publications.txt y se añade al stack en el archivo main.c. La función recibe un usuario (que será el usuario logueado a través de la opción 3.) 
   
+  // A través de diversos 'scanf', recogemos la información a través de la consola y se la asignamos a los distintos atributos de la publicación 'new_publication'. 
   Publication new_publication;
-  getchar();
-  printf("Álbum:  ");
+  getchar(); // Utilizamos la función getchar() para 'limpiar' el imput de la consola.
+  printf("\nÁlbum:  ");
   scanf("%256[^\n]s", new_publication.album);
   getchar();
   printf("Artista:  ");
@@ -29,24 +29,26 @@ Publication add_publication(){
   printf("Descripción:  ");
   scanf("%256[^\n]s", new_publication.description);
   getchar();
-  printf("Foto (URL):  ");
-  scanf("%256[^\n]s", new_publication.photo);
+  printf("Canción favorita:  ");
+  scanf("%256[^\n]s", new_publication.track);
   
   
-// Añadir los datos al archivo. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
+  
+// Una vez terminada la recogida de datos, añadimos los datos al archivo txt. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
 
-   // Abrir el archivo en modo lectura y escritura
+   // Abrir el archivo en modo lectura y escritura.
   FILE *file2 = fopen("./Data/Publications.txt", "a+");
 
-  if (file2 == NULL) {
-     printf("No se pudo abrir el archivo.\n");
+  if (file2 == NULL) { // Si no se puede abrir el archivo, se imprime el error y se hace return.
+    printf("No se pudo abrir el archivo.\n");
+    return;
   }
 
   // Contar las líneas en el archivo.
   int lineas_p = 1; 
   char caracter;
 
-  while ((caracter = fgetc(file2)) != EOF) {
+  while ((caracter = fgetc(file2)) != EOF) { // Realizamos una estructura while para contar cada línea del archivo. Se sumará una línea por cada salto de línea ('\n').
     if (caracter == '\n') {
       lineas_p++;
     }
@@ -55,39 +57,41 @@ Publication add_publication(){
   // Asignamos el el valor del id de la publicación al siguiente valor del contador de líneas.
   new_publication.id_publication = (lineas_p + 1);
   
-  // Obtener data local.
+  // Obtener data local. Utilizamos distintas funciones de la libreria <time.h>
   char dateActual[50];
   time_t horaActual;
   struct tm *fecha1;
   horaActual = time(NULL);
   fecha1 = localtime(&horaActual);
-  strftime(dateActual, sizeof(dateActual), "%Y-%m-%d", fecha1);
+  strftime(dateActual, sizeof(dateActual), "%Y-%m-%d", fecha1); // la variable dateActual representará la fecha en la que se realizó la publicación. Es una de las variables que se añadirán a la publicación al archivo txt. 
 
   
-  // Escribir los datos en el archivo.
+  // Escribir los datos en el archivo a través de la función fscanf.
   fprintf(file2, "\n%d · %s · %s · %s · %s · %s · %s · %s · %s",
-new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo, Actual.username, dateActual);
+new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.track, user.username, dateActual);
 
   // Cerrar el archivo.
   fclose(file2);
 
-  return new_publication;  
+  return new_publication; // La función devuelve un objeto de estructura Publication que utilizaremos en el main para añadirlo al stack.
   
 }
 
+// 7. Listar publicaciones
 
+// Ahora implementaremos una serie de funcionaremos que utilizaremos en la implementación de la lista dinámica para listar las publicaciones del usuario logeado.
 Publication* create_node() { //Función que crea el nodo de la lista dinámica
-    Publication *node = (Publication*)malloc(sizeof(Publication));
-    node->UserData = (User*)malloc(sizeof(User));
-    node->next = NULL;
-    return node;
+    Publication *node = (Publication*)malloc(sizeof(Publication)); // Reservamos espacio de memoria para el nodo.
+    node->UserData = (User*)malloc(sizeof(User)); // Reservamos espacio de memoria para el usuario del que se listan las publicaciones.
+    node->next = NULL; // Establecemos como vacío el siguiente elemento al nodo. 
+    return node; // La función devuelve el nodo.
 }
 
-void insert_publication(Publication **head, Publication *node) {
+void insert_publication(Publication **head, Publication *node) { // El doble puntero a head representa la cabecera de la lista.
     if (*head == NULL) {
-        *head = node;
+        *head = node; // Si la lista está vacía, el nodo se convierte en el head. 
     } else {
-        Publication *current = *head;
+        Publication *current = *head; // Si existe una publicación en el puntero a head, el nodo se agrega a la lista después del último elemento (current).
         while (current->next != NULL) {
             current = current->next;
         }
@@ -95,17 +99,64 @@ void insert_publication(Publication **head, Publication *node) {
     }
 }
 
-void free_list(Publication *head) {
+void free_list(Publication *head) { // Una vez mostradas por pantalla las publicaciones del usuario, necesitaremos una función que libere la memoria utilizada por los nodos y el usuario logueado.
     Publication *current = head;
-    while (current != NULL) {
-        Publication *temp = current;
+    while (current != NULL) { // Con una estructura while, recorre y libera los elementos uno por uno y después el usuario.
+        Publication *publi = current;
         current = current->next;
-        free(temp->UserData);
-        free(temp);
+        free(publi->UserData);
+        free(publi);
     }
 }
 
-void list_publications() {
+// Una vez implementadas las funciones auxiliares, implementaremos la función que listará las publicaciones.
+void list_publications(User user) { 
+    
+  // Abrimos el archivo de publicaciones en modo lectura.
+    FILE *file1 = fopen("./Data/Publications.txt", "r");
+
+    if (file1 == NULL) { // Si no se puede abrir el archivo, se imprime el error y se hace return. 
+        printf("Error: No se pudo abrir el archivo.\n");
+        return;
+    }
+
+    Publication *head = NULL; // Establecemos como nula la cabeza de la lista.
+    char line[MAX_LINE_LENGTH]; // Creamos la variable 'line' que tendrá longitud máxima 'MAX_LINE_LENGTH' y que servirá para leer la información de cada línea del archivo de las publicaciones. Esta línea representará cad publicación en la línea.
+
+    // Con una bucle while, extraemos todas las variables de la publicación para separarlas y asignarlas a la estructura del nodo. Las variables de la publicación están separadas por un carácter '·'. 
+    while (fgets(line, MAX_LINE_LENGTH, file1) != NULL) {
+        Publication *node = create_node(); // Utilizamos scanf para leer cada línea.
+        sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^ ·] · %[^\n]",
+               &node->id_publication, node->album, node->artist,
+               node->label, node->year, node->description, node->track, node->UserData->username,
+               node->release_date);
+
+        insert_publication(&head, node); // Tras esto, utilizamos esta función auxiliar para insertar el nodo con las variables recién asignadas en la lista dinámica.
+    }
+
+    fclose(file1); // Cerramos el archivo.
+
+
+
+    // Buscamos las publicaciones que tengan el nombre de usuario ingresado y las imprimimos
+    Publication *current = head;
+    while (current != NULL) {
+        if (strcmp(current->UserData->username, user.username) == 0) {
+            printf("\n%d · %s· %s· %s· %s· %s· %s· %s · %s\n", current->id_publication,
+                   current->album, current->artist, current->label,
+                   current->year, current->description, current->track,
+                   current->UserData->username, current->release_date);
+        }
+        current = current->next;
+    }
+
+  
+    // Liberamos la memoria asignada para las publicaciones
+    free_list(head);
+}
+
+// Una vez implementadas las funciones auxiliares, implementaremos la función que listará las publicaciones.
+void list_publications_any_user() { 
     // Abrimos el archivo de publicaciones y asignamos a cada uno de los elementos de la línea a su valor correspondiente en la estructura de la publicación
     FILE *file1 = fopen("./Data/Publications.txt", "r");
 
@@ -121,9 +172,7 @@ void list_publications() {
         Publication *node = create_node();
         sscanf(line, "%d · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^·] · %[^ ·] · %[^\n]",
                &node->id_publication, node->album, node->artist,
-               node->label, node->year, node->description,
-               node->photo, node->UserData->username,
-               node->release_date);
+               node->label, node->year, node->description, node->track, node->UserData->username, node->release_date);
 
         insert_publication(&head, node);
     }
@@ -142,9 +191,9 @@ void list_publications() {
     Publication *current = head;
     while (current != NULL) {
         if (strcmp(current->UserData->username, user_name) == 0) {
-            printf("%d · %s · %s · %s · %s · %s · %s · %s · %s\n", current->id_publication,
+            printf("\n%d · %s· %s· %s· %s· %s· %s· %s · %s\n", current->id_publication,
                    current->album, current->artist, current->label,
-                   current->year, current->description, current->photo,
+                   current->year, current->description, current->track,
                    current->UserData->username, current->release_date);
         }
         current = current->next;
@@ -154,7 +203,6 @@ void list_publications() {
     // Liberamos la memoria asignada para las publicaciones
     free_list(head);
 }
-
 
 w_count dictionary[MAX_LINE_LENGTH*MAX_PUBLICATIONS];
 int n_words = 0;

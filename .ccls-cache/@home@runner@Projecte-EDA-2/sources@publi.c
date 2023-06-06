@@ -8,10 +8,9 @@
 #define MAX_LINE_LENGTH 1024
 
 
-Publication add_publication(){
-  User Actual;
-  Actual = user_log_in();
+Publication add_publication(User user) { // Función utilizada para añadir una publicación a través de la consola. Se añade al archivo Publications.txt y se añade al stack en el archivo main.c.  
   
+  // A través de diversos 'scanf', recogemos la información a través de la consola y se la asigna 
   Publication new_publication;
   getchar();
   printf("Álbum:  ");
@@ -66,7 +65,7 @@ Publication add_publication(){
   
   // Escribir los datos en el archivo.
   fprintf(file2, "\n%d · %s · %s · %s · %s · %s · %s · %s · %s",
-new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo, Actual.username, dateActual);
+new_publication.id_publication,new_publication.album,new_publication.artist,new_publication.label,new_publication.year,new_publication.description,new_publication.photo, user.username, dateActual);
 
   // Cerrar el archivo.
   fclose(file2);
