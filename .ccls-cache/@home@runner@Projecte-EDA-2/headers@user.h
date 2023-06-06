@@ -5,25 +5,25 @@
 #define MAX_PUBLICATIONS 50
 
 typedef struct { // Estructura con los datos de cada usuario.
-  int id;
-  char username[MAX_LENGTH];
-  char password[MAX_LENGTH];
-  int age;
-  char email[MAX_LENGTH];
-  char location[MAX_LENGTH]; 
-  char date[11];
-  char genres[3][15];
+    int id;
+    char username[MAX_LENGTH];
+    char password[MAX_LENGTH];
+    int age;
+    char email[MAX_LENGTH];
+    char location[MAX_LENGTH]; 
+    char date[11];
+    char genres[3][15];
 } User;
 
 struct UserLogged{
-  char User;
-  char password;
+    char User;
+    char password;
 };
 
 // Lista dinámica de usuarios.
 typedef struct node {
-  User user;
-  struct node *next;
+    User user;
+    struct node *next;
 } Node;
 
 void dynamic_array_users(); 

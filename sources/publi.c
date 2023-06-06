@@ -44,7 +44,6 @@ Publication add_publication(User user) { // Función utilizada para añadir una 
   
     if (file2 == NULL) { // Si no se puede abrir el archivo, se imprime el error y se hace return.
         printf("No se pudo abrir el archivo.\n");
-        return;
     }
   
     // Contar las líneas en el archivo.

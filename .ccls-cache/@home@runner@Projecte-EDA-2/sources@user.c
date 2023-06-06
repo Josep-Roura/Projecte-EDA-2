@@ -7,135 +7,133 @@
 #define MAX_LINE_LENGTH 1024
 
 void add_new_user() {
-  int Age;
-  char Username[MAX_LENGTH], Password[MAX_LENGTH], Email[MAX_LENGTH],
-      Location[MAX_LENGTH], Genre1[MAX_LENGTH], Genre2[MAX_LENGTH],
-      Genre3[MAX_LENGTH];
-
-  int num_users = 0;
-  User users[MAX_USERS];
-  read_user(users, &num_users);
+    int Age;
+    char Username[MAX_LENGTH], Password[MAX_LENGTH], Email[MAX_LENGTH],
+        Location[MAX_LENGTH], Genre1[MAX_LENGTH], Genre2[MAX_LENGTH],
+        Genre3[MAX_LENGTH];
   
-  while (1) {
-  printf("\nIntroducir nuevo nombre de usuario:");
-  scanf("%s", Username);
-
-  int usuario_duplicado = 0;
-  for (int i = 0; i < num_users; i++) {
-    if (strcmp(users[i].username, Username) == 0) { // Usuario con este nombre encontrado.
-      usuario_duplicado = 1; 
-      break;
+    int num_users = 0;
+    User users[MAX_USERS];
+    read_user(users, &num_users);
+    
+    while (1) {
+        printf("\nIntroducir nuevo nombre de usuario:");
+        scanf("%s", Username);
+      
+        int usuario_duplicado = 0;
+        for (int i = 0; i < num_users; i++) {
+            if (strcmp(users[i].username, Username) == 0) { // Usuario con este nombre encontrado.
+            usuario_duplicado = 1; 
+            break;
+            }
+        }
+      
+        if (usuario_duplicado) {
+            printf("\nUsuario %s ya registrado. Elige un nombre de usuario distinto.\n", Username);
+        } else {
+            break;  // Nombre de usuario válido, salir del bucle.
+        }
     }
-  }
-
-  if (usuario_duplicado) {
-    printf("\nUsuario %s ya registrado. Elige un nombre de usuario distinto.\n", Username);
-  } else {
-    break;  // Nombre de usuario válido, salir del bucle.
-  }
-}
-
-  while (1) {
-    printf("\nIntroducir contraseña (6-20 caracteres):");
-    scanf("%s", Password);
-
-    if (strlen(Password) >= 6 && strlen(Password) <= 20) {
-      break; // La longitud de la contraseña es válida, salir del bucle.
+  
+    while (1) {
+        printf("\nIntroducir contraseña (6-20 caracteres):");
+        scanf("%s", Password);
+    
+        if (strlen(Password) >= 6 && strlen(Password) <= 20) {
+          break; // La longitud de la contraseña es válida, salir del bucle.
+        }
+        printf("La contraseña debe tener entre 6 y 20 caracteres. Inténtalo de nuevo.\n");
     }
-    printf("La contraseña debe tener entre 6 y 20 caracteres. Inténtalo de "
-           "nuevo.\n");
-  }
-
-  printf("\nIntroducir edad:");
-  scanf("%d", &Age);
-
-  printf("\nIntroducir email:");
-  scanf("%s", Email);
-
-  printf("\nIntroducir ubicación (ciudad):");
-  scanf("%s", Location);
-
-  printf("\nIntroducir el primer género de música favorito:");
-  scanf("%s", Genre1);
-
-  printf("\nIntroducir el segundo género de música favorito:");
-  scanf("%s", Genre2);
-
-  printf("\nIntroducir el tercer género de música favorito:");
-  scanf("%s", Genre3);
-
-  // Añadir los datos al archivo.
-
-  // Abrir el archivo en modo lectura.
-  FILE *archivo = fopen("./Data/Users.txt", "r");
-
-  if (archivo == NULL) {
-    printf("No se pudo abrir el archivo.\n");
-  }
-
-  int lineas = 2; // Teniendo en cuenta que la última línea no tiene un \n y que
-                  // el queremeos hacer es escribir en una nueva línea.
-  char caracter;
-
-  // Contar las líneas en el archivo.
-  while ((caracter = fgetc(archivo)) != EOF) {
-    if (caracter == '\n') {
-      lineas++;
+  
+    printf("\nIntroducir edad:");
+    scanf("%d", &Age);
+  
+    printf("\nIntroducir email:");
+    scanf("%s", Email);
+  
+    printf("\nIntroducir ubicación (ciudad):");
+    scanf("%s", Location);
+  
+    printf("\nIntroducir el primer género de música favorito:");
+    scanf("%s", Genre1);
+  
+    printf("\nIntroducir el segundo género de música favorito:");
+    scanf("%s", Genre2);
+  
+    printf("\nIntroducir el tercer género de música favorito:");
+    scanf("%s", Genre3);
+  
+    // Añadir los datos al archivo.
+  
+    // Abrir el archivo en modo lectura.
+    FILE *archivo = fopen("./Data/Users.txt", "r");
+  
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo.\n");
     }
+  
+    int lineas = 2; // Teniendo en cuenta que la última línea no tiene un \n y que
+                    // el queremeos hacer es escribir en una nueva línea.
+    char caracter;
+  
+    // Contar las líneas en el archivo.
+    while ((caracter = fgetc(archivo)) != EOF) {
+        if (caracter == '\n') {
+            lineas++;
+        }
+    }
+  
+    // Cerrar el archivo en forma lectura.
+    fclose(archivo);
+  
+    // Abrir el archivo en modo escritura.
+    archivo = fopen("./Data/Users.txt", "a");
+  
+    if (archivo == NULL) {
+        printf("No se pudo abrir el archivo.\n");
+        return;
+    }
+  
+    // Obtener data local.
+    char fechaActual[50];
+    time_t tiempoActual;
+    struct tm *fecha;
+    tiempoActual = time(NULL);
+    fecha = localtime(&tiempoActual);
+    strftime(fechaActual, sizeof(fechaActual), "%Y-%m-%d", fecha);
+  
+    // Escribir los datos en el archivo.
+    fprintf(archivo, "\n%d,%s,%s,%d,%s,%s,%s,%s,%s,%s", lineas, Username, Password, Age, Email, Location, fechaActual, Genre1, Genre2, Genre3);
+  
+    // Cerrar el archivo.
+    fclose(archivo);
   }
-
-  // Cerrar el archivo en forma lectura.
-  fclose(archivo);
-
-  // Abrir el archivo en modo escritura.
-  archivo = fopen("./Data/Users.txt", "a");
-
-  if (archivo == NULL) {
-    printf("No se pudo abrir el archivo.\n");
-    return;
-  }
-
-  // Obtener data local.
-  char fechaActual[50];
-  time_t tiempoActual;
-  struct tm *fecha;
-  tiempoActual = time(NULL);
-  fecha = localtime(&tiempoActual);
-  strftime(fechaActual, sizeof(fechaActual), "%Y-%m-%d", fecha);
-
-  // Escribir los datos en el archivo.
-  fprintf(archivo, "\n%d,%s,%s,%d,%s,%s,%s,%s,%s,%s", lineas, Username,
-          Password, Age, Email, Location, fechaActual, Genre1, Genre2, Genre3);
-
-  // Cerrar el archivo.
-  fclose(archivo);
-}
-
+  
 void read_user(User *users, int *num_users) {
-  // Structure .txt : id, username, password, age, email, location, date,
-  // genres, genres, genres.
-  FILE *file = fopen("./Data/Users.txt", "r");
-  if (file == NULL) {
-    printf("Error. No se pudo abrir el archivo.\n");
-    return;
+    // Structure .txt : id, username, password, age, email, location, date,
+    // genres, genres, genres.
+    FILE *file = fopen("./Data/Users.txt", "r");
+    if (file == NULL) {
+      printf("Error. No se pudo abrir el archivo.\n");
+      return;
+    }
+  
+    char line[MAX_LINE_LENGTH];
+    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
+      User user;
+      sscanf(line,
+             "%d,%255[^,],%255[^,],%d,%255[^,],%255[^,],%11[^,],%15[^,],%15[^,],%"
+             "15s",
+             &user.id, user.username, user.password, &user.age, user.email,
+             user.location, user.date, user.genres[0], user.genres[1],
+             user.genres[2]);
+      users[*num_users] = user;
+      (*num_users)++;
+    }
+  
+    fclose(file);
   }
-
-  char line[MAX_LINE_LENGTH];
-  while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-    User user;
-    sscanf(line,
-           "%d,%255[^,],%255[^,],%d,%255[^,],%255[^,],%11[^,],%15[^,],%15[^,],%"
-           "15s",
-           &user.id, user.username, user.password, &user.age, user.email,
-           user.location, user.date, user.genres[0], user.genres[1],
-           user.genres[2]);
-    users[*num_users] = user;
-    (*num_users)++;
-  }
-
-  fclose(file);
-}
-
+  
 void insertion_sort_users(User users[], int num_users) {
   int i, j;
   for (i = 1; i < num_users;
@@ -229,7 +227,7 @@ User user_log_in() {
       tries ++;
       }
   }
-  printf("\nHas fallado la contraseña 3 veces. Se te he redireccionado al menú principal\n");
+  printf("\nHas fallado la contraseña 3 veces. Se te he redireccionado al menú principal.\n");
 }
 
 

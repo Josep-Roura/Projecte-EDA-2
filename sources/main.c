@@ -54,7 +54,6 @@ int main() {
                 printf("Opción 3 seleccionada: Operar como un usuario específico.\n"); 
                 Actual = user_log_in();
                 log_in_completed = 1;
-                printf("%s", Actual.username);
                
                 break;
             case 4:
@@ -126,7 +125,6 @@ int main() {
                     FILE *file = fopen("./Data/Publications.txt", "r"); // Se abre el archivo Publications en modo lectura. 
                     if (file == NULL){ // Si hay error abriendo el archivo se imprime el error y se termina la ejecución.
                         printf("Error. No se pudo abrir el archivo.");
-                        return;
                     }
                 
                     while (fscanf(file, "%s", word) != EOF){ // Se escanea el archivo entero hasta que se termina (EOF)
