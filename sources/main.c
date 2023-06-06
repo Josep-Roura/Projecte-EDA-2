@@ -76,7 +76,7 @@ int main() {
                   printf("\nDebes iniciar sesión primero.\n");
                 }
               // Aquí irá el código para gestionar las solicitudes pendientes.
-              break;
+                break;
           
             case 6: // Opción para añadir publicaciones y mostrar las publicaciones hechas en esta sesión. 
               
@@ -101,7 +101,7 @@ int main() {
                 else {
                   printf("\nDebes iniciar sesión primero.\n");
                 }
-              break;
+                break;
           
             case 7: // Opción para listar las publicaciones del usuario que ha hecho log in.
                 if (log_in_completed == 1) {
@@ -111,7 +111,7 @@ int main() {
                 else {
                   printf("\nDebes iniciar sesión primero.\n");
                 }           
-              break;
+                break;
 
             case 8: // Opción para listar las publicaciones de cualquier usuario. Para poder hacerlo, hay que estar logueado antes.
                 if (log_in_completed == 1) {
@@ -121,10 +121,10 @@ int main() {
                 else {
                   printf("\nDebes iniciar sesión primero.\n");
                 }           
-              break;
+                break;
           
             case 9: // Opción para imprimir las 10 palabras más usadas en las publicaciones. Se usará para ello un diccionario ordenado. 
-              if (log_in_completed == 1) { // Se necesitará estar logueado para acceder a esta información.
+                if (log_in_completed == 1) { // Se necesitará estar logueado para acceder a esta información.
                 printf("Opción 9 seleccionada: Realizar conteo de palabras.\n");
 
                 char word[50]; // Se crea la variable word con una longitud más que suficiente de 50 carácteres.   
@@ -142,10 +142,10 @@ int main() {
 
                 ranking_words(); // Se utiliza esta función para imprimir las 10 palabras con más repeticiones, es decir, las 10 primeras palabras del diccionario.
                 
-              } else {
+                } else {
                   printf("\nDebes iniciar sesión primero.\n");
-              }           
-              break;
+                }           
+                break;
 
             
             case 10:
