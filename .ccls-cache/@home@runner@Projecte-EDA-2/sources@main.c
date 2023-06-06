@@ -9,15 +9,6 @@
 
 int main() {
   
-  /*
-    Graph graph;
-    createGraph(&graph);
-    readUsersFile(&graph);
-    readFriendsFile(&graph);
-    printGraph(&graph);
-    saveGraphAsImage(&graph, "grafo.png");
-*/  
-    // Se muestra el mensaje de bienvenida.
     printf("Bienvenidos a --nom aplicacio--, nuestra red social de música!\n");
 
     
@@ -59,7 +50,7 @@ int main() {
             case 4:
                 if (log_in_completed == 1) {
                     printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n");
-                    new_friend();
+                    new_friend(&Actual);
                 }
                 else {
                     printf("\nDebes iniciar sesión primero.\n");
@@ -69,6 +60,7 @@ int main() {
             case 5:
                 if (log_in_completed == 1) {
                     printf("Opción 5 seleccionada: Gestionar las solicitudes pendientes.\n");
+                    GestionateFriends(&Actual);
                 } else {
                     printf("\nDebes iniciar sesión primero.\n");
                 }
@@ -150,6 +142,11 @@ int main() {
                 printf("Opción 11 seleccionada: Salir (Terminar ejecución).\n");
                 break;
 
+            case 12:
+                printf("Opción 12 seleccionada: Crear grafo de amistades.\n");
+                CrearGrafoAmistades();
+                break;
+          
             default:
                 printf("\nOpción no válida. Por favor, ingrese una opción válida.\n");
                 break;

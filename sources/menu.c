@@ -17,6 +17,7 @@ void show_menu() {
     printf("9. Realizar conteo de palabras.\n");
     printf("10. Mostrar los términos de uso.\n");
     printf("11. Salir (Terminar ejecución).\n");
+    printf("12. Crear grafo de las amistades.\n");
 }
 
   

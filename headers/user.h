@@ -20,6 +20,14 @@ struct UserLogged{
     char password;
 };
 
+typedef struct {
+    int idAmistad;
+    int idUsuarioEnvia;
+    int idUsuarioRecibe;
+    char fecha[20];
+    int estado;
+} Amistad;
+
 // Lista dinámica de usuarios.
 typedef struct node {
     User user;
@@ -37,4 +45,6 @@ void insertion_sort_users(User users[], int num_users); // Función utilizada pa
 
 int is_username_duplicate(const char* username); // Función que nos indicará si el nombre de usuario nuevo que queremos registrar ya está en uso en la red social.
 
-void new_friend();
+void new_friend(User* ActualUser);
+
+void GestionateFriends(User* actualUser);

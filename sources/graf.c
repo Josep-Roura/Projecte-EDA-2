@@ -1,80 +1,124 @@
-/*
-#include "../headers/grafs.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../headers/grafs.h"
 
-void createGraph(Graph *graph) {
-    graph_init(graph);
-}
+void InsertarAmigo(NodoAmigo** lista, int idAmigo) {
+    NodoAmigo* nuevoNodo = (NodoAmigo*)malloc(sizeof(NodoAmigo));
+    nuevoNodo->idAmigo = idAmigo;
+    nuevoNodo->siguiente = NULL;
 
-void readUsersFile(Graph *graph) {
-    FILE *file = fopen("./Data/Users.txt", "r");
-    if (file == NULL) {
-        printf("Error: No se pudo abrir el archivo Users.txt\n");
-        return;
-    }
-
-    char line[100];
-    fgets(line, sizeof(line), file);  // Ignorar la primera línea de encabezado
-
-    while (fgets(line, sizeof(line), file) != NULL) {
-        int idUser, edad;
-        char username[20], password[20], email[50], ciudad[20], dataActual[20], gusto1[20], gusto2[20], gusto3[20];
-
-        sscanf(line, "%d,%[^,],%[^,],%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]",
-               &idUser, username, password, &edad, email, ciudad, dataActual, gusto1, gusto2, gusto3);
-
-        graph_add_node(graph, username);
-    }
-
-    fclose(file);
-}
-
-void readFriendsFile(Graph *graph) {
-    FILE *file = fopen("./Data/Amigos.txt", "r");
-    if (file == NULL) {
-        printf("Error: No se pudo abrir el archivo Amigos.txt\n");
-        return;
-    }
-
-    char line[100];
-    fgets(line, sizeof(line), file);  // Ignorar la primera línea de encabezado
-
-    while (fgets(line, sizeof(line), file) != NULL) {
-        int idAmistad, idUser1, idUser2, state;
-        char data[20];
-
-        sscanf(line, "%d,%d,%d,%[^,],%d", &idAmistad, &idUser1, &idUser2, data, &state);
-
-        char username1[20];
-        char username2[20];
-        graph_get_node_value(graph, idUser1, username1);
-        graph_get_node_value(graph, idUser2, username2);
-
-        if (state == 1) {
-            graph_add_edge(graph, username1, username2, "Aceptada", "color=blue");
-        } else if (state == 0) {
-            graph_add_edge(graph, username1, username2, "Pendiente", "color=red");
+    if (*lista == NULL) {
+        *lista = nuevoNodo;
+    } else {
+        NodoAmigo* ultimo = *lista;
+        while (ultimo->siguiente != NULL) {
+            ultimo = ultimo->siguiente;
         }
+        ultimo->siguiente = nuevoNodo;
+    }
+}
+
+void InsertarUsuario(NodoUsuario** listaUsuarios, int idUsuario) {
+    // Verificar si el usuario ya existe
+    NodoUsuario* nodoUsuarioExistente = *listaUsuarios;
+    while (nodoUsuarioExistente != NULL) {
+        if (nodoUsuarioExistente->idUsuario == idUsuario) {
+            return;
+        }
+        nodoUsuarioExistente = nodoUsuarioExistente->siguiente;
     }
 
-    fclose(file);
+    // Crear un nuevo nodo de usuario
+    NodoUsuario* nuevoNodo = (NodoUsuario*)malloc(sizeof(NodoUsuario));
+    nuevoNodo->idUsuario = idUsuario;
+    nuevoNodo->listaAmigos = NULL;
+    nuevoNodo->siguiente = NULL;
+
+    // Insertar el nuevo nodo al final de la lista de usuarios
+    if (*listaUsuarios == NULL) {
+        *listaUsuarios = nuevoNodo;
+    } else {
+        NodoUsuario* ultimo = *listaUsuarios;
+        while (ultimo->siguiente != NULL) {
+            ultimo = ultimo->siguiente;
+        }
+        ultimo->siguiente = nuevoNodo;
+    }
 }
 
-void printGraph(Graph *graph) {
-    graph_print(graph);
+
+void AgregarAmistad(NodoUsuario** listaUsuarios, int idUsuario1, int idUsuario2) {
+    NodoUsuario* nodoUsuario1 = *listaUsuarios;
+    NodoUsuario* nodoUsuario2 = *listaUsuarios;
+    while (nodoUsuario1 != NULL && nodoUsuario1->idUsuario != idUsuario1) {
+        nodoUsuario1 = nodoUsuario1->siguiente;
+    }
+    while (nodoUsuario2 != NULL && nodoUsuario2->idUsuario != idUsuario2) {
+        nodoUsuario2 = nodoUsuario2->siguiente;
+    }
+
+    if (nodoUsuario1 != NULL && nodoUsuario2 != NULL) {
+        InsertarAmigo(&(nodoUsuario1->listaAmigos), idUsuario2);
+        InsertarAmigo(&(nodoUsuario2->listaAmigos), idUsuario1);
+    }
 }
 
-void saveGraphAsImage(Graph *graph, const char *filename) {
-    FILE *file = fopen(filename, "w");
-    if (file == NULL) {
-        printf("Error: No se pudo crear el archivo de imagen.\n");
+void LiberarListaAmigos(NodoAmigo* lista) {
+    NodoAmigo* actual = lista;
+    while (actual != NULL) {
+        NodoAmigo* siguiente = actual->siguiente;
+        free(actual);
+        actual = siguiente;
+    }
+}
+
+void LiberarListaUsuarios(NodoUsuario* listaUsuarios) {
+    NodoUsuario* actual = listaUsuarios;
+    while (actual != NULL) {
+        NodoUsuario* siguiente = actual->siguiente;
+        LiberarListaAmigos(actual->listaAmigos);
+        free(actual);
+        actual = siguiente;
+    }
+}
+
+void CrearGrafoAmistades() {
+    FILE* archivoAmistades = fopen("./Data/Amigos.txt", "r");
+    if (archivoAmistades == NULL) {
+        printf("No se pudo abrir el archivo de amistades.\n");
         return;
     }
 
-    graph_save_as_dot(graph, file);
+    NodoUsuario* listaUsuarios = NULL;
 
-    fclose(file);
+    char linea[100];
+    while (fgets(linea, sizeof(linea), archivoAmistades) != NULL) {
+        int idAmistad, idUsuarioEnvia, idUsuarioRecibe, estado;
+        char fecha[50];
+        sscanf(linea, "%d, %d, %d, %[^,], %d", &idAmistad, &idUsuarioEnvia, &idUsuarioRecibe, fecha, &estado);
+
+        InsertarUsuario(&listaUsuarios, idUsuarioEnvia);
+        InsertarUsuario(&listaUsuarios, idUsuarioRecibe);
+        AgregarAmistad(&listaUsuarios, idUsuarioEnvia, idUsuarioRecibe);
+    }
+
+    fclose(archivoAmistades);
+
+    // Imprimir el grafo de amistades representado por la lista de adyacencia
+    NodoUsuario* nodoUsuario = listaUsuarios;
+    while (nodoUsuario != NULL) {
+        printf("Amistades de Usuario %d:", nodoUsuario->idUsuario);
+
+        NodoAmigo* nodoAmigo = nodoUsuario->listaAmigos;
+        while (nodoAmigo != NULL) {
+            printf(" %d ", nodoAmigo->idAmigo);
+            nodoAmigo = nodoAmigo->siguiente;
+        }
+        printf("\n");
+        nodoUsuario = nodoUsuario->siguiente;
+    }
+
+    // Liberar memoria de la lista de usuarios y amigos
+    LiberarListaUsuarios(listaUsuarios);
 }
-*/

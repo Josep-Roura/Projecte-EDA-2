@@ -1,4 +1,4 @@
-digraph G {
+igraph G {
 node [shape=plaintext];
  [label="\nAmistades: 0\nPendientes: 1"];
  ->  [color=red];

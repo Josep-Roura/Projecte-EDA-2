@@ -179,8 +179,8 @@ User user_log_in() {
   }
   
   int proof_username = 0;
-  char username[MAX_USERS];
   int key = 0;
+  char username[MAX_USERS];
   printf("\nOperar como usuario:");
   scanf("%s", username);
   
@@ -254,5 +254,207 @@ void dynamic_array_users() {
     current->next = new_node;
   }
 }
+
+
+void new_friend(User *ActualUser){
+    // Pedir al usuario el nombre del destinatario
+    char nombreUsuario[MAX_LINE_LENGTH];
+    printf("\nIntroduce el nombre del usuario al que quieres enviar la solicitud de amistad: ");
+    scanf("%s", nombreUsuario);
+
+    // Abrir el archivo de usuarios
+    FILE* archivoUsuarios = fopen("./Data/Users.txt", "r");
+    if (archivoUsuarios == NULL) {
+        printf("Error al abrir el archivo de usuarios.\n");
+        return;
+    }
+
+      
+    // Abrir el archivo de amigos en modo de añadir al final
+    FILE* archivoAmigos = fopen("./Data/Amigos.txt", "a");
+    if (archivoAmigos == NULL) {
+        printf("Error al abrir el archivo de amigos.\n");
+        fclose(archivoUsuarios);
+        return;
+    }
+    
+    // Buscar el nombre de usuario en el archivo de usuarios
+    char linea[MAX_LINE_LENGTH];
+    int idUsuarioDestino = -1;
+    char IdUserFinal;
+    
+    while (fgets(linea, sizeof(linea), archivoUsuarios) != NULL) {
+        // Obtener el nombre de usuario de la línea
+        char* token = strtok(linea, ",");
+        if (token != NULL) {
+            // Saltar los tokens hasta llegar al nombre de usuario
+            idUsuarioDestino = atoi(token);
+            printf("%d", idUsuarioDestino);
+            for (int i = 0; i < 1; i++) {
+                token = strtok(NULL, ",");
+                printf("%s", token);
+            }
+            // Verificar si el nombre de usuario coincide
+            if (strcmp(token, nombreUsuario) == 0) {
+                break;
+            } else {
+              idUsuarioDestino = -1;
+            }
+        }
+    }
+
+
+    
+    // Verificar si se encontró el nombre de usuario
+    if (idUsuarioDestino == -1) {
+        printf("\nEl usuario '%s' no existe.\n", nombreUsuario);
+        fclose(archivoUsuarios);
+        fclose(archivoAmigos);
+        return;
+    }
+    
+    // Obtener el siguiente ID de amistad
+    FILE* archivoUsuariosID = fopen("./Data/Amigos.txt", "r");
+    if (archivoUsuariosID == NULL) {
+        printf("No se pudo abrir el archivo.\n");
+    }
+    
+    int IdAmistad = 2;
+    char caracter;
+    
+    while ((caracter = fgetc(archivoUsuariosID)) != EOF) {
+        if (caracter == '\n') {
+            IdAmistad++;
+        }
+    }
+    
+    fclose(archivoUsuariosID);
+    // Obtener data local.
+    char fechaActual[50];
+    time_t tiempoActual;
+    struct tm *fecha;
+    tiempoActual = time(NULL);
+    fecha = localtime(&tiempoActual);
+    strftime(fechaActual, sizeof(fechaActual), "%Y-%m-%d", fecha);
+  
+    // Generar una nueva línea para agregar al archivo de amigos
+    char nuevaLinea[MAX_LINE_LENGTH];
+    sprintf(nuevaLinea, "\n%d, %d, %d, %s, 0", IdAmistad, ActualUser->id, idUsuarioDestino, fechaActual); // Actualiza "fecha_actual" con la fecha real
+    
+    // Escribir la nueva línea en el archivo de amigos
+    fputs(nuevaLinea, archivoAmigos);
+    
+    // Cerrar los archivos
+    fclose(archivoUsuarios);
+    fclose(archivoAmigos);
+    
+    printf("\nSe ha enviado una solicitud de amistad a '%s'.\n", nombreUsuario);
+}
+
+void GestionateFriends(User* actualUser) {
+    FILE* archivoUsuarios = fopen("./Data/Users.txt", "r");
+    FILE* archivoAmistades = fopen("./Data/Amigos.txt", "r+");
+  
+    if (archivoUsuarios == NULL || archivoAmistades == NULL) {
+        printf("No se pudieron abrir los archivos.\n");
+        return;
+    }
+  
+    int actualUserId = actualUser->id;
+    char actualUsername[50];
+    strcpy(actualUsername, actualUser->username);
+    int contadorEnvia = 0;
+    int contadorRecibe = 0;
+
+    printf("\nAmistades enviadas por %s:\n", actualUsername);
+  
+    char lineaAmistad[100];
+    long int posicionAntigua = ftell(archivoAmistades);
+
+    while (fgets(lineaAmistad, sizeof(lineaAmistad), archivoAmistades) != NULL) {
+        Amistad amistad;
+        sscanf(lineaAmistad, "%d, %d, %d, %[^,], %d", &amistad.idAmistad, &amistad.idUsuarioEnvia, &amistad.idUsuarioRecibe, amistad.fecha, &amistad.estado);
+
+        if (amistad.idUsuarioEnvia == actualUserId) {
+            // Buscar el nombre de usuario correspondiente al idUsuarioRecibe
+            fseek(archivoUsuarios, 0, SEEK_SET);
+            char lineaUsuario[200];
+            while (fgets(lineaUsuario, sizeof(lineaUsuario), archivoUsuarios) != NULL) {
+                User usuario;
+                sscanf(lineaUsuario, "%d,%[^,],", &usuario.id, usuario.username);
+
+                if (usuario.id == amistad.idUsuarioRecibe) {
+                    printf("\nSolicitud %d: %s --> %s (Estado: %d)\n", amistad.idAmistad, actualUsername, usuario.username, amistad.estado);
+                    contadorEnvia++;
+                    break;
+                }
+            }
+        } else if (amistad.idUsuarioRecibe == actualUserId) {
+            // Buscar el nombre de usuario correspondiente al idUsuarioEnvia
+            fseek(archivoUsuarios, 0, SEEK_SET);
+            char lineaUsuario[200];
+            while (fgets(lineaUsuario, sizeof(lineaUsuario), archivoUsuarios) != NULL) {
+                User usuario;
+                sscanf(lineaUsuario, "%d,%[^,],", &usuario.id, usuario.username);
+
+                if (usuario.id == amistad.idUsuarioEnvia) {
+                    printf("\nSolicitud %d: %s <-- %s (Estado: %d)\n", amistad.idAmistad, usuario.username, actualUsername, amistad.estado);
+                    contadorRecibe++;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (contadorEnvia == 0) {
+        printf("\nNo se encontraron más amistades enviadas por %s.\n", actualUsername);
+    }
+
+    if (contadorRecibe == 0) {
+        printf("\nNo se encontraron más amistades recibidas por %s.\n", actualUsername);
+    }
+
+    // Pedir al usuario el número de solicitud para modificar el estado
+    int numeroSolicitud;
+    printf("Ingrese el número de solicitud recibida para modificar el estado (0 para no realizar cambios): ");
+    scanf("%d", &numeroSolicitud);
+
+    // Modificar el estado de la solicitud si se proporcionó un número válido
+    if (numeroSolicitud != 0) {
+        fseek(archivoAmistades, posicionAntigua, SEEK_SET);
+
+        int encontrado = 0;
+
+        while (fgets(lineaAmistad, sizeof(lineaAmistad), archivoAmistades) != NULL) {
+            Amistad amistad;
+            sscanf(lineaAmistad, "%d,%d,%d,%[^,],%d", &amistad.idAmistad, &amistad.idUsuarioEnvia, &amistad.idUsuarioRecibe, amistad.fecha, &amistad.estado);
+
+            if (amistad.idAmistad == numeroSolicitud && amistad.idUsuarioRecibe == actualUserId) {
+                encontrado = 1;
+                // Modificar el estado de la solicitud
+                if (amistad.estado == 0) {
+                    amistad.estado = 1;
+                    printf("\nLa solicitud %d ha sido aceptada.\n", amistad.idAmistad);
+                } else if (amistad.estado == 1) {
+                    amistad.estado = 0;
+                    printf("\nLa solicitud %d ha vuelto a estar pendiente.\n", amistad.idAmistad);
+                }
+
+                // Actualizar la línea en el archivo
+                fseek(archivoAmistades, -(strlen(lineaAmistad)), SEEK_CUR);
+                fprintf(archivoAmistades, "%d, %d, %d, %s, %d\n", amistad.idAmistad, amistad.idUsuarioEnvia, amistad.idUsuarioRecibe, amistad.fecha, amistad.estado);
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            printf("\nNo se encontró la solicitud con el número %d. Puede ser que esta solicitud la hayas enviado tu.\n", numeroSolicitud);
+        }
+    }
+
+    fclose(archivoUsuarios);
+    fclose(archivoAmistades);
+}
+
 
 
