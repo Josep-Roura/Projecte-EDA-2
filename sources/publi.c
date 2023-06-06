@@ -7,7 +7,7 @@
 #define MAX_LENGTH 256
 #define MAX_LINE_LENGTH 1024
 
-// 6. Añadir publicaciones
+// 6. AÑADIR PUBLICACIÓN
 
 Publication add_publication(User user) { // Función utilizada para añadir una publicación a través de la consola. Se añade al archivo Publications.txt y se añade al stack en el archivo main.c. La función recibe un usuario (que será el usuario logueado a través de la opción 3.) 
   
@@ -77,7 +77,8 @@ new_publication.id_publication,new_publication.album,new_publication.artist,new_
   
 }
 
-// 7. Listar publicaciones
+
+// 7. LISTAR LAS PUBLICACIONES DEL USUARIO REGISTRADO
 
 // Ahora implementaremos una serie de funcionaremos que utilizaremos en la implementación de la lista dinámica para listar las publicaciones del usuario logeado.
 Publication* create_node() { //Función que crea el nodo de la lista dinámica
@@ -155,7 +156,9 @@ void list_publications(User user) {
     free_list(head);
 }
 
+
 // 8. LISTAR LAS PUBLICACIONES DE OTRO USUARIO.
+
 // Esta función es igual que la anterior pero recibe un nombre de usuario por consola e imprime sus publicaciones. 
 
 void list_publications_any_user() { 
@@ -209,28 +212,31 @@ void list_publications_any_user() {
 }
 
 
-// 9. REALIZAR CONTEO DE PALABRAS
+
+// 9. REALIZAR CONTEO DE PALABRAS CON DICCIONARIO
 
 // Creamos el diccionario con estructura w_count y longitud igual al numero de publicaciones por el máximo de publicaciones.
 w_count dictionary[MAX_LINE_LENGTH*MAX_PUBLICATIONS];
-int n_words = 0; // Variable que contabiliza el número de palabras.
+int n_words = 0; // Variable que contabiliza el número de palabras distintas.
 
+// Creamos la función que añadirá la palabra al diccionario o incrementará su conteo 
 void add_word(const char *word){
   int i;
   int length = strlen(word);
   
-  for (i = 0; i < length; i++){
+  for (i = 0; i < length; i++){ //Chequeamos que no sea un símbolo la palabra.
     if (!isalpha(word[i])){
       return;
     }
   }
   
-  char minuscula_word[50];
+  char minuscula_word[50]; //Convertimos las mayúsculas en minúsculas para que sean iguales para el conteo (ejemplo 'The' y 'the').
   for (i = 0; i < length; i++) {
     minuscula_word[i] = tolower(word[i]);
   }
-  minuscula_word[length] = '\0';
-  
+  minuscula_word[length] = '\0'; //Se añade al último carácter para que sea el carácter final.
+
+  //Si existe la palabra en el diccionario, se incrementa su conteo.
   for (i = 0; i < MAX_LINE_LENGTH*MAX_PUBLICATIONS; i++) {
     if (strcmp (dictionary[i].word, minuscula_word) == 0){
       dictionary[i].count++;
@@ -238,21 +244,24 @@ void add_word(const char *word){
     }
   }
 
+  //Si no existe la palabra, se crea una variable con estructura w_count y se asigna el nombre de la palabra y se crea el conteo uno en la posición del diccionario 'n_word', que es el número de palabras distintas contabilizadas. 
   if (n_words < MAX_LINE_LENGTH*MAX_PUBLICATIONS) {
     strcpy(dictionary[n_words].word, minuscula_word);
     dictionary[n_words].count = 1;
-    n_words++;
+    n_words++; // Aumenta el número de palabras distintas.
   } 
 
 }
 
+// La siguiente función sirve para imprimir las 10 palabras más usadas.
 void ranking_words(){
   int i = 0;
   int j = 1;
 
-  w_count lil_word;
+  w_count lil_word; //Esta variable representa la palabra más pequeña entre dos.
   
-
+  
+// El bucle exterior maneja todas las palabras únicas del diccionario y el bucle interior realiza las comparaciones entre ellas, ordenándolas de mayor a menor (si dictionary[j] tiene menos repeticiones que dictionary[j+1], estas cambian el orden)  
   for (i = 0; i < n_words - 1; i++){
     for (j = 0; j < n_words - 1 - i; j++){
       if (dictionary[j].count < dictionary[j+1].count){
@@ -263,6 +272,7 @@ void ranking_words(){
     }
   }
 
+  // Se imprimen las 10 primeras palabras del diccionario que serán las que más repeticiones tengan.
   printf("Las 10 palabras más usadas en las publicaciones son:\n");
   for (i = 0; i < n_words && i < 10; i++){
     printf("%d. %s: %d\n", i+1, dictionary[i].word, dictionary[i].count);
