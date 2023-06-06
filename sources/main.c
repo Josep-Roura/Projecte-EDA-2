@@ -33,49 +33,47 @@ int main() {
         show_menu();
         printf("Ingrese la opción deseada: ");
         if (scanf("%d", &option) != 1) { // Hacemos esto para que no se quede en bucle imprimiendo el menú cuando introduzcamos en valor no numérico.
-          fflush(stdin); // Limpiamos el buffer de entrada.
-          getchar(); // Ignoramos el carácter no válido.
-          printf("\nOpción no válida. Por favor, ingrese una opción válida.\n");
-          continue; // Volvemos al inicio del bucle.
+            fflush(stdin); // Limpiamos el buffer de entrada.
+            getchar(); // Ignoramos el carácter no válido.
+            printf("\nOpción no válida. Por favor, ingrese una opción válida.\n");
+            continue; // Volvemos al inicio del bucle.
         }
 
         switch (option) {
-            case 1: // DONE
+            case 1: 
                 printf("Opción 1 seleccionada: Insertar nuevo usuario.\n");
-                // Aquí irá el código para insertar un nuevo usuario.
+                
                 add_new_user();
                 break;
-            case 2: // DONE
-                printf("Opción 2 seleccionada: Listar todos los usuarios existentes.\n");  // Josep
+            case 2:
+                printf("Opción 2 seleccionada: Listar todos los usuarios existentes.\n"); 
                 print_users();
-                // Aquí irá el código para listar todos los usuarios existentes.
+                
                 break;
-            case 3: // DONE
-                printf("Opción 3 seleccionada: Operar como un usuario específico.\n"); // Eric
+            case 3:
+                printf("Opción 3 seleccionada: Operar como un usuario específico.\n"); 
                 Actual = user_log_in();
                 log_in_completed = 1;
                 printf("%s", Actual.username);
                
-                // Aquí irá el código para operar como un usuario específico.
                 break;
-            case 4: //
+            case 4:
                 if (log_in_completed == 1) {
-                  printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n");
-                  void new_friend();
+                    printf("Opción 4 seleccionada: Enviar solicitudes de amistad.\n");
+                    void new_friend();
                 }
                 else {
-                  printf("\nDebes iniciar sesión primero.\n");
+                    printf("\nDebes iniciar sesión primero.\n");
                 }
-                // Aquí irá el código para enviar solicitudes de amistad.
+                
                 break;
             case 5:
                 if (log_in_completed == 1) {
-                  printf("Opción 5 seleccionada: Gestionar las solicitudes pendientes.\n");
+                    printf("Opción 5 seleccionada: Gestionar las solicitudes pendientes.\n");
+                } else {
+                    printf("\nDebes iniciar sesión primero.\n");
                 }
-                else {
-                  printf("\nDebes iniciar sesión primero.\n");
-                }
-              // Aquí irá el código para gestionar las solicitudes pendientes.
+              
                 break;
           
             case 6: // Opción para añadir publicaciones y mostrar las publicaciones hechas en esta sesión. 
@@ -160,6 +158,6 @@ int main() {
         }
     } while (option != 11); 
 
-  return 0; 
+    return 0; 
 
 }

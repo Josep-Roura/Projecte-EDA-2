@@ -7,7 +7,7 @@
 #define MAX_LENGTH 256
 #define MAX_LINE_LENGTH 1024
 
-// 6. AÑADIR PUBLICACIÓN
+// 6. AÑADIR PUBLICACIÓN.
 
 // Estructura de la publicación:
 // nº_publicación · álbum · artista · sello discográfico · año de publicación del album · descripción · canción favorita · usuario · fecha de la publicación.
@@ -37,9 +37,9 @@ Publication add_publication(User user) { // Función utilizada para añadir una 
     
     
     
-  // Una vez terminada la recogida de datos, añadimos los datos al archivo txt. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
+    // Una vez terminada la recogida de datos, añadimos los datos al archivo txt. Contamos las publicaciones previas para darle el numero de publicación a la nueva publicación.
   
-     // Abrir el archivo en modo lectura y escritura.
+    // Abrir el archivo en modo lectura y escritura.
     FILE *file2 = fopen("./Data/Publications.txt", "a+");
   
     if (file2 == NULL) { // Si no se puede abrir el archivo, se imprime el error y se hace return.
@@ -77,10 +77,10 @@ Publication add_publication(User user) { // Función utilizada para añadir una 
   
     return new_publication; // La función devuelve una publicación que utilizaremos en el main para añadirlo al stack.
     
-  }
+}
   
   
-  // 7. LISTAR LAS PUBLICACIONES DEL USUARIO REGISTRADO
+// 7. LISTAR LAS PUBLICACIONES DEL USUARIO.
 
 // Ahora implementaremos una serie de funciones que utilizaremos en la implementación de la lista dinámica para listar las publicaciones del usuario logeado.
 Publication* create_node() { //Función que crea el nodo de la lista dinámica
@@ -215,19 +215,19 @@ void add_word(const char *word){
     int i;
     int length = strlen(word);
     
-    for (i = 0; i < length; i++){ //Chequeamos que no sea un símbolo la palabra.
+    for (i = 0; i < length; i++){ // Chequeamos que no sea un símbolo la palabra.
         if (!isalpha(word[i])){
             return;
         }
     }
     
-    char minuscula_word[50]; //Convertimos las mayúsculas en minúsculas para que sean iguales para el conteo (ejemplo 'The' y 'the').
+    char minuscula_word[50]; // Convertimos las mayúsculas en minúsculas para que sean iguales para el conteo (ejemplo 'The' y 'the').
     for (i = 0; i < length; i++) {
         minuscula_word[i] = tolower(word[i]);
     }
-    minuscula_word[length] = '\0'; //Se añade al último carácter para que sea el carácter final.
+    minuscula_word[length] = '\0'; // Se añade al último carácter para que sea el carácter final.
   
-    //Si existe la palabra en el diccionario, se incrementa su conteo.
+    // Si existe la palabra en el diccionario, se incrementa su conteo.
     for (i = 0; i < MAX_LINE_LENGTH*MAX_PUBLICATIONS; i++) {
         if (strcmp (dictionary[i].word, minuscula_word) == 0){
             dictionary[i].count++;
@@ -235,21 +235,21 @@ void add_word(const char *word){
         }
     }
   
-    //Si no existe la palabra, se crea una variable con estructura w_count y se asigna el nombre de la palabra y se crea el conteo uno en la posición del diccionario 'n_word', que es el número de palabras distintas contabilizadas. 
+    // Si no existe la palabra, se crea una variable con estructura w_count y se asigna el nombre de la palabra y se crea el conteo uno en la posición del diccionario 'n_word', que es el número de palabras distintas contabilizadas. 
     if (n_words < MAX_LINE_LENGTH*MAX_PUBLICATIONS) {
         strcpy(dictionary[n_words].word, minuscula_word);
         dictionary[n_words].count = 1;
         n_words++; // Aumenta el número de palabras distintas.
     } 
   
-  }
+}
   
 // La siguiente función sirve para imprimir las 10 palabras más usadas.
 void ranking_words(){
     int i = 0;
     int j = 1;
   
-    w_count lil_word; //Esta variable representa la palabra más pequeña entre dos.
+    w_count lil_word; // Esta variable representa la palabra más pequeña entre dos.
     
     
     // El bucle exterior maneja todas las palabras únicas del diccionario y el bucle interior realiza las comparaciones entre ellas, ordenándolas de mayor a menor (si dictionary[j] tiene menos repeticiones que dictionary[j+1], estas cambian el orden)  
