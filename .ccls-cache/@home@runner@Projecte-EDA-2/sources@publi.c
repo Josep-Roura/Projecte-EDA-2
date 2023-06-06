@@ -76,7 +76,7 @@ new_publication.id_publication,new_publication.album,new_publication.artist,new_
 }
 
 
-Publication* create_node() {
+Publication* create_node() { //Función que crea el nodo de la lista dinámica
     Publication *node = (Publication*)malloc(sizeof(Publication));
     node->UserData = (User*)malloc(sizeof(User));
     node->next = NULL;

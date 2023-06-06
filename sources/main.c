@@ -108,7 +108,8 @@ int main() {
                 }           
               break;
           
-            case 8: 
+            case 8:
+              if (log_in_completed == 1) {
                 printf("Opción 8 seleccionada: Realizar conteo de palabras.\n");
 
                 char word[50];  
@@ -125,7 +126,11 @@ int main() {
                 fclose(file);
 
                 ranking_words();
-                break;
+              }
+          else {
+                  printf("\nDebes iniciar sesión primero.\n");
+                }           
+              break;
           
             case 9:
                 printf("Opción 9 seleccionada: Mostrar términos de uso.\n");
