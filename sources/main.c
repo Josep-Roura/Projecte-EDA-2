@@ -9,7 +9,7 @@
 
 int main() {
   
-    printf("Bienvenidos a --nom aplicacio--, nuestra red social de música!\n");
+    printf("\nBienvenidos a --nom aplicacio--, nuestra red social de música!\n");
 
     
     int option = 0;
@@ -131,27 +131,32 @@ int main() {
                     printf("\nDebes iniciar sesión primero.\n");
                 }           
                 break;
+          
+            case 10:
+                if (log_in_completed == 1) {
+                  printf("Opción 10 seleccionada: Crear grafo de amistades.\n");
+                  CrearGrafoAmistades();
+                }
+                else {
+                  printf("\nDebes iniciar sesión primero.\n");
+                  }
+                break;
 
             
-            case 10:
-                printf("Opción 10 seleccionada: Mostrar términos de uso.\n");
+            case 11:
+                printf("Opción 11 seleccionada: Mostrar términos de uso.\n");
                 terms_of_use();
                 break;
           
-            case 11:
-                printf("Opción 11 seleccionada: Salir (Terminar ejecución).\n");
-                break;
-
             case 12:
-                printf("Opción 12 seleccionada: Crear grafo de amistades.\n");
-                CrearGrafoAmistades();
+                printf("Opción 12 seleccionada: Salir (Terminar ejecución).\n");
                 break;
           
             default:
                 printf("\nOpción no válida. Por favor, ingrese una opción válida.\n");
                 break;
         }
-    } while (option != 11); 
+    } while (option != 12); 
 
     return 0; 
 
