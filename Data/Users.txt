@@ -22,4 +22,4 @@
 22,francisco,franciscos,20,f.luc.aquaro@gmail.com,Barcelona,2023-05-18,Rock,Rap,Reggae
 23,josep.roura,Password,19,josep.roura01@gmail.com,Girona,2023-05-23,Pop,folk,techno
 24,juanito,juanito,18,f.luc.aquaro@gmail.com,Barcelona,2023-06-05,rock,reggae,rap
-25,eric.matas,eric.matas,18,eric.matas@gmail.com,Barcelona,2023-06-08,pop,rap,drill
+25,eric.matas,eric.matas,18,eric.matas@gmail.com,Barcelona,2023-06-11,pop,rap,trap
