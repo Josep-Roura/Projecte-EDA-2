@@ -8,8 +8,16 @@
 #include <stdlib.h>
 
 int main() {
+  printf("\n######## ##     ## ##    ## ########    ##    ## ######## ########\n");
+  printf("   ##    ##     ## ###   ## ##          ###   ## ##          ##\n");
+  printf("   ##    ##     ## ####  ## ##          ####  ## ##          ##\n");
+  printf("   ##    ##     ## ## ## ## ######      ## ## ## ######      ##\n");
+   printf("   ##    ##     ## ##  #### ##          ##  #### ##          ##\n");
+  printf("   ##    ##     ## ##   ### ##          ##   ### ##          ##\n");
+  printf("   ##     #######  ##    ## ########    ##    ## ########    ##\n");
+
   
-    printf("\nBienvenidos a Tune Net, nuestra red social de música!\n");
+    printf("\n¡Bienvenidos a Tune Net, nuestra red social de música!\n");
 
     
     int option = 0;
