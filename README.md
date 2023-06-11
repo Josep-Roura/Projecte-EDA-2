@@ -381,7 +381,7 @@ Además, el sistema cuenta con una capa de abstracción de datos que encapsula l
 
 En un inicio creamos este diagrama de la arquitectura de lo que iba a ser nuestro proyecto de red social en C:
 
-![Diagrama de la arquitectura del sistema](1685986052684.jpg)
+![Diagrama de la arquitectura del sistema](img/1685986052684.jpg)
 
 Gestión de errores:
 
@@ -397,7 +397,7 @@ El diseño del modelo de datos se basa en las necesidades específicas del proye
 
 En el caso de nuestro proyecto definimos los siguientes elementos importantes: 
 
-![Diagrama del diseño del modelo de datos](Aspose.Words.428ff622-d527-41f6-9f14-6add474b9060.002.png)
+![Diagrama del diseño del modelo de datos](img/Aspose.Words.428ff622-d527-41f6-9f14-6add474b9060.002.png)
 
 Entidades principales:
 
