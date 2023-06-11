@@ -47,13 +47,9 @@ Descripción general:
 
 En este objetivo, se implementaron diferentes estructuras de datos para satisfacer las funcionalidades del proyecto de red social. Se utilizaron listas, una pila y una cola para almacenar y gestionar datos de usuarios y publicaciones.
 
-Variables utilizadas:
+Variables y estructuras de datos utilizadas:
 
-En el caso de las listas, se utilizaron variables como *User users[MAX\_USERS]* para almacenar los datos de los usuarios. Además, se utilizó una lista dinámica de publicaciones mediante la estructura *Publication\** y las variables asociadas.
-
-Estructuras de datos utilizadas:
-
-Listas: Se implementaron diferentes listas dinámicas, como un array de usuarios (*User users[MAX\_USERS]*) para almacenar la información de los usuarios registrados en la red social. O como también una lista dinámica de publicaciones mediante la estructura *Publication\** para almacenar las publicaciones realizadas por los usuarios.
+Se implementaron diferentes listas dinámicas, como un array de usuarios (User users[MAX_USERS]) para almacenar la información de los usuarios registrados en la red social. Como también una pila (stack) de publicaciones mediante la estructura Publication* para almacenar las publicaciones realizadas por los usuarios. O una cola (queue) para almacenar las solicitudes de amistad.
 
 Algoritmos utilizados:
 
