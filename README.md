@@ -9,7 +9,7 @@ JOSEP ROURA - U215081
 FRANCISCO LUC - U213512 
 
 
-**PROTOTIPO DE RED SOCIAL**
+**PROTOTIPO DE RED SOCIAL - TUNE NET**
 
 
 
@@ -17,7 +17,7 @@ FRANCISCO LUC - U213512
 
 En el contexto del curso académico, teníamos la tarea de desarrollar un prototipo de red social funcional utilizando los conocimientos adquiridos en programación. Nuestro objetivo ha sido crear una aplicación local en lenguaje C que combine creatividad y funcionalidad, permitiendo a los usuarios interactuar en un entorno virtual diseñado para compartir intereses, establecer conexiones y comunicarse de manera efectiva.
 
-El planteamiento inicial del proyecto nos desafía a desarrollar una red social en consola, lo que nos brinda una oportunidad única para aplicar nuestros conocimientos de programación en un entorno práctico. En nuestro caso, hemos decidido hacer un prototipo de red social de música, donde se pueda compartir tus gustos musicales a través de publicaciones. Estas publicaciones constan de canciones o álbumes enteros donde se referencian datos como: el autor del tema, el año de publicación, el género al que pertenece y hasta un URL para escuchar la canción al momento de ver la publicación de otro usuario.
+El planteamiento inicial del proyecto nos desafía a desarrollar una red social en consola, lo que nos brinda una oportunidad única para aplicar nuestros conocimientos de programación en un entorno práctico. En nuestro caso, hemos decidido hacer un prototipo de red social de **música**, donde se pueda compartir tus gustos musicales a través de publicaciones. Estas publicaciones constan de canciones o álbumes enteros donde se referencian datos como: el autor del tema, el año de publicación, el género al que pertenece y hasta un URL para escuchar la canción al momento de ver la publicación de otro usuario.
 
 A lo largo del proceso, hemos definido una serie de objetivos obligatorios principales.
 
