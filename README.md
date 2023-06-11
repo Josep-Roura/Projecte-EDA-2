@@ -11,6 +11,9 @@ FRANCISCO LUC - U213512
 
 **PROTOTIPO DE RED SOCIAL - TUNE NET**
 
+LINK DEL VIDEO EN DRIVE: https://drive.google.com/file/d/1yvYGCGPHwVydat3rkt7bTVaR4Kjo9wXZ/view?usp=drive_link
+
+(VIDEO COMPARTIDO CON:  hector.florido@upf.edu)
 
 
 **INTRODUCCIÓN**
